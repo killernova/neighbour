@@ -42,38 +42,9 @@ ActiveRecord::Schema.define(version: 20160308082923) do
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  create_table "events", force: :cascade do |t|
-    t.string   "event_type",         limit: 7,                                           null: false
-    t.string   "pic_url",            limit: 500,                                         null: false
-    t.datetime "start_time",                                                             null: false
-    t.datetime "end_time",                                                               null: false
-    t.integer  "user_id",            limit: 4
-    t.integer  "limited_people",     limit: 4,                             default: 0
-    t.string   "goods_unit",         limit: 45
-    t.decimal  "price",                           precision: 10, scale: 2, default: 0.0
-    t.string   "pay_type",           limit: 7
-    t.decimal  "goods_small_than",                precision: 20, scale: 2, default: 0.0
-    t.decimal  "goods_big_than",                  precision: 20, scale: 2, default: 0.0
-    t.string   "name",               limit: 45
-    t.string   "mobile",             limit: 45
-    t.integer  "comments_count",     limit: 4,                             default: 0
-    t.integer  "participants_count", limit: 4,                             default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "agree",              limit: 4,                             default: 0
-    t.integer  "disagree",           limit: 4,                             default: 0
-    t.string   "locale",             limit: 255
-    t.integer  "recommend",          limit: 4
-    t.string   "address",            limit: 255
-    t.string   "x_coordinate",       limit: 255
-    t.string   "y_coordinate",       limit: 255
-    t.string   "zh_title",           limit: 255
-    t.string   "zh_body",            limit: 5000
-    t.string   "en_title",           limit: 255
-    t.string   "en_body",            limit: 5000
-  end
+  
 
-  add_index "events", ["user_id"], name: "index_events_on_user_id", using: :btree
+  
 
   create_table "forums", force: :cascade do |t|
     t.string "name", limit: 255, null: false
@@ -81,100 +52,7 @@ ActiveRecord::Schema.define(version: 20160308082923) do
 
   add_index "forums", ["name"], name: "index_forums_on_name", unique: true, using: :btree
 
-  create_table "groupbuys", force: :cascade do |t|
-    t.string   "pic_url",            limit: 500,                                         null: false
-    t.string   "locale",             limit: 45,                           default: "zh"
-    t.datetime "start_time",                                                             null: false
-    t.datetime "end_time",                                                               null: false
-    t.integer  "user_id",            limit: 4
-    t.integer  "recommend",          limit: 4,                            default: 0
-    t.string   "goods_unit",         limit: 45
-    t.decimal  "price",                          precision: 10, scale: 2,                null: false
-    t.string   "pay_type",           limit: 7
-    t.decimal  "goods_minimal",                  precision: 20, scale: 2
-    t.decimal  "goods_maximal",                  precision: 20, scale: 2
-    t.string   "name",               limit: 45
-    t.string   "mobile",             limit: 45
-    t.integer  "comments_count",     limit: 4,                            default: 0
-    t.integer  "participants_count", limit: 4,                            default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.decimal  "market_price",                   precision: 10, scale: 2
-    t.decimal  "weight",                         precision: 10, scale: 2
-    t.integer  "logistic_id",        limit: 4
-    t.integer  "status",             limit: 1,                            default: 1
-    t.decimal  "groupbuy_price",                 precision: 10, scale: 2
-    t.string   "en_title",           limit: 255
-    t.string   "en_body",            limit: 255
-    t.string   "zh_title",           limit: 255
-    t.string   "zh_body",            limit: 255
-    t.boolean  "online",                                                  default: true
-    t.string   "goods_size",         limit: 255
-    t.string   "goods_bbd",          limit: 255
-  end
-
-  add_index "groupbuys", ["user_id"], name: "index_groupbuys_on_user_id", using: :btree
-
-  create_table "groups", force: :cascade do |t|
-    t.string  "name",       limit: 255, null: false
-    t.integer "user_id",    limit: 4
-    t.string  "group_desc", limit: 255
-  end
-
-  add_index "groups", ["name"], name: "index_groups_on_name", unique: true, using: :btree
-  add_index "groups", ["user_id"], name: "index_groups_on_user_id", using: :btree
-
-  create_table "logistics", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "name",       limit: 255
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "default",    limit: 1
-  end
-
-  add_index "logistics", ["user_id"], name: "index_logistics_on_user_id", using: :btree
-
-  create_table "logistics_items", force: :cascade do |t|
-    t.integer  "logistic_id", limit: 4
-    t.string   "areas",       limit: 255
-    t.integer  "price",       limit: 4
-    t.integer  "each_add",    limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "logistics_items", ["logistic_id"], name: "index_logistics_items_on_logistic_id", using: :btree
-
-  create_table "participants", force: :cascade do |t|
-    t.string   "title",           limit: 255,                                         null: false
-    t.integer  "user_id",         limit: 4
-    t.string   "name",            limit: 45
-    t.string   "mobile",          limit: 45
-    t.string   "address",         limit: 255
-    t.integer  "event_id",        limit: 4
-    t.integer  "status",          limit: 4,                             default: 0
-    t.integer  "people_amount",   limit: 4,                             default: 1
-    t.decimal  "goods_amount",                 precision: 10, scale: 2, default: 0.0
-    t.string   "remark",          limit: 1000
-    t.integer  "status_pay",      limit: 4,                             default: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "status_ship",     limit: 4,                             default: 0
-    t.string   "delivery_time",   limit: 255
-    t.string   "tracking_number", limit: 255
-    t.integer  "freightage",      limit: 4
-    t.decimal  "discount",                     precision: 10, scale: 2
-    t.string   "area",            limit: 255
-    t.integer  "discount_id",     limit: 4
-    t.integer  "quantity",        limit: 4
-  end
-
-  add_index "participants", ["event_id"], name: "index_participants_on_event_id", using: :btree
-  add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
-
   create_table "photos", force: :cascade do |t|
-    t.integer  "groupbuy_id",  limit: 4
-    t.integer  "event_id",     limit: 4
     t.string   "image",        limit: 255
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
@@ -219,7 +97,7 @@ ActiveRecord::Schema.define(version: 20160308082923) do
     t.string   "name",       limit: 45,  null: false
     t.string   "mobile",     limit: 45
     t.string   "address",    limit: 500, null: false
-    t.string   "area",       limit: 255
+    t.string   "living_area",       limit: 255
     t.integer  "default",    limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -241,25 +119,11 @@ ActiveRecord::Schema.define(version: 20160308082923) do
     t.string   "wexin_openid",       limit: 255
     t.integer  "comments_count",     limit: 4,   default: 0
     t.integer  "participants_count", limit: 4,   default: 0
-    t.integer  "events_count",       limit: 4,   default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "groups_id",          limit: 4
-    t.integer  "agree",              limit: 4,   default: 0
-    t.integer  "disagree",           limit: 4,   default: 0
-    t.integer  "group_id",           limit: 4
     t.string   "nickname",           limit: 255
   end
 
-  create_table "votes", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "comment_id", limit: 4
-    t.integer  "event_id",   limit: 4
-    t.integer  "topic_id",   limit: 4
-    t.integer  "status",     limit: 4
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-  end
 
   create_table "wechats", force: :cascade do |t|
     t.string   "auth_access_token",             limit: 255
