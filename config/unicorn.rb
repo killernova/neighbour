@@ -1,6 +1,6 @@
 worker_processes 4
 timeout 30
-listen 5000
+listen 5500
 
 require 'pathname'
 
