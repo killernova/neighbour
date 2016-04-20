@@ -4,8 +4,8 @@
       @home_active = 'active'
     when 'users'
       @users_active = 'active'
-    when 'groupbuys'
-      @groupbuys_active = 'active'
+    when 'community_news'
+      @news_active = 'active'
     when 'events'
       @events_active = 'active'  
     when 'searchs'
@@ -18,13 +18,13 @@
   <%=link_to root_path,class: "item #{@home_active}, hidden" do%>
     <i class="fa fa-home"></i>
   <%end%>
-  <%=link_to groupbuys_path,class: "item #{@groupbuys_active}" do%>
+  <%=link_to community_news_index_path,class: "item #{@news_active}" do%>
     <i class="fa fa-cart-plus"></i>
   <%end%>
-  <%=link_to events_path,class: "item #{@events_active}" do%>
+  <%=link_to '#',class: "item #{@events_active}" do%>
     <i class="fa fa-calendar"></i>
   <%end%>
-  <%=link_to forum_path(forum_id),class: "item #{@forums_active}" do%>
+  <%=link_to '#',class: "item #{@forums_active}" do%>
     <i class="fa fa-bullhorn"></i>
   <%end%>
   <%if current_user

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   helper_method :signed_in?, :current_user,:forum_id, :cut_pic
 
   before_action :set_locale,  except: :wechat_notify_url
-
+  
  
 
 
@@ -93,6 +93,12 @@ class ApplicationController < ActionController::Base
     Rails.logger.info "------current_user.id=#{current_user.try(:id)}"
     Rails.logger.info "------user.id=#{user.try(:id)}"
     unless current_user == user || is_admin?
+      redirect_to register_path, alert: '很抱歉您没有权限操作!'
+    end
+  end
+
+  def validate_admin!
+    unless current_user && is_admin?
       redirect_to register_path, alert: '很抱歉您没有权限操作!'
     end
   end

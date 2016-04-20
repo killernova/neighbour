@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       end
     end
     @user = User.new
-    @groups = Group.all
+    
   end
 
   def my_groupbuys
@@ -79,10 +79,10 @@ class UsersController < ApplicationController
 
     #微信share接口配置
     if current_user.present?
-      group_owner = User.find_by(id: current_user.group.user_id)
-      group_name = current_user.group.name
-      @groupid = current_user.group.id
-      @title = session[:locale] == 'zh' ? "#{group_owner.name}推荐您加入 Groupmall!" : "#{group_owner.name} recommend you to join Groupmall!"
+
+
+
+      @title = session[:locale] == 'zh' ? "推荐您加入 Groupmall!" : "recommend you to join Groupmall!"
       @img_url = 'http://foodie.trade-v.com/groupmall_logo.jpg'
       @desc = session[:locale] == 'zh' ? 'Groupmall 是拼人品的团购、聚会和论坛。' : 'Groupmall is trusted based group buying, meetups and forums.'
       @timestamp = Time.now.to_i
@@ -102,18 +102,7 @@ class UsersController < ApplicationController
 
     type = params[:type] || 'topic'
     
-    if current_user == @user
-      @group = Group.find_by(id: current_user.try(:group_id))
-      if @group
-        @group_admin = User.find_by(id: @group.user_id)
-      end
-      if ['1', '2'].include? current_user.try(:role)
-        @groups = Group.where(user_id: current_user.id)
-        if current_user.role == '1'
-          @groups = Group.all
-        end
-      end
-    end
+    
     @share_alert = session[:locale] == 'zh' ? '请点击右上角的分享按钮进行分享' : 'Please click the SHARE BUTTON on the top right conner'
     render layout: "profile2", locals: {page: type}
   end

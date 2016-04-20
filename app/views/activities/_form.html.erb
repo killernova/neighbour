@@ -1,0 +1,52 @@
+<%= form_for @activity, html: { class: 'activity-form' } do |f| %>
+<div class="row">
+  <div class="columns small-12">
+    <%= f.text_field :title, placeholder: '活动标题' %>
+  </div>
+</div>
+
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.text_field :location, placeholder: '活动地点' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.text_field :start_time, :value => (@activity.start_time.nil? ? nil : l(@activity.start_time)), required: true, :class=>"fdatepicker", :id=>"dpd2", placeholder: '活动开始时间' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.text_field :sponsor, placeholder: '活动主办方(可选)' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.text_area :introduction, placeholder: '活动简介', rows: 5 %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.text_area :extras_info, placeholder: '附加信息(可选)' %>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.check_box :for_free, {checked: true}, true, false %>
+    <span class="free">免费</span>
+  </div>
+</div>
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.submit '提交', class: 'button expand' %>
+  </div>
+</div>
+
+<% end %>

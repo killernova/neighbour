@@ -1,0 +1,37 @@
+<% provide :title, '活动' %>
+<div class="show-activity-page">
+  <div class="row">
+    <div class="columns small-12">
+      <%= @activity.title %>
+    </div>
+  </div>
+  <hr />
+
+  
+  <div class="row">
+    <div class="columns small-12">
+      <%= @activity.location %>
+    </div>
+  </div>
+  <hr />
+
+
+  <div class="row">
+    <div class="columns small-12">
+      <%= @activity.start_time %>
+    </div>
+  </div>
+
+  <% if @activity.sponsor %>
+  <div class="row">
+   <div class="columns small-12">
+     <div class="sponsor-title">
+       活动主办方
+     </div>
+     <div class="sponsor-content">
+       <%= @activity.sponsor %>
+     </div>
+   </div>
+ </div>
+ <% end %>
+</div>

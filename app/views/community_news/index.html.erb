@@ -1,0 +1,30 @@
+<% provide :title, '居委告示' %>
+<div class="community-news-index">
+  <% if @billboards.present? %>
+  <div class="billboards">
+    <%= render partial: 'news_lists', locals: { community_news: @billboards } %>
+  </div>
+  <% else %>
+  <div class="no-objects">暂无告示</div>
+  <% end %>
+
+  <div class="tag-text text-center">物业通知</div>
+  <% if @notices.present? %>
+  <div class="notices">
+    
+    <%= render partial: 'news_lists', locals: { community_news: @notices } %>
+  </div>
+  <% else %>
+  <div class="no-objects">暂无通知</div>
+  <% end %>
+
+  <div class="tag-text text-center">社区活动</div>
+  <% if @activities.present? %>
+  <div class="activities">
+    
+    <%= render partial: 'news_lists', locals: { community_news: @activities } %>
+  </div>
+  <% else %>
+  <div class="no-objects">暂无活动</div>
+  <% end %>
+</div>

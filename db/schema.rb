@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160308082923) do
+ActiveRecord::Schema.define(version: 20160419103431) do
+
+  create_table "activities", force: :cascade do |t|
+    t.string   "title",        limit: 255
+    t.string   "location",     limit: 255
+    t.datetime "start_time"
+    t.string   "sponsor",      limit: 255
+    t.text     "introduction", limit: 65535
+    t.text     "extras_info",  limit: 65535
+    t.boolean  "for_free"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+    t.integer  "owner_id",     limit: 4
+    t.decimal  "cost",                       precision: 10
+  end
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string   "data_file_name",    limit: 255, null: false
@@ -42,9 +56,29 @@ ActiveRecord::Schema.define(version: 20160308082923) do
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
-  
+  create_table "communities", force: :cascade do |t|
+    t.string   "name",       limit: 20
+    t.string   "area",       limit: 20
+    t.integer  "population", limit: 8
+    t.string   "address",    limit: 100
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
-  
+  add_index "communities", ["name"], name: "index_communities_on_name", using: :btree
+
+  create_table "community_news", force: :cascade do |t|
+    t.string   "title",        limit: 255
+    t.text     "content",      limit: 65535
+    t.integer  "user_id",      limit: 4
+    t.integer  "community_id", limit: 4
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "tag",          limit: 20
+  end
+
+  add_index "community_news", ["community_id"], name: "index_community_news_on_community_id", using: :btree
+  add_index "community_news", ["user_id"], name: "index_community_news_on_user_id", using: :btree
 
   create_table "forums", force: :cascade do |t|
     t.string "name", limit: 255, null: false
@@ -93,12 +127,12 @@ ActiveRecord::Schema.define(version: 20160308082923) do
   add_index "topics", ["user_id"], name: "index_topics_on_user_id", using: :btree
 
   create_table "user_addresses", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.string   "name",       limit: 45,  null: false
-    t.string   "mobile",     limit: 45
-    t.string   "address",    limit: 500, null: false
-    t.string   "living_area",       limit: 255
-    t.integer  "default",    limit: 1
+    t.integer  "user_id",     limit: 4
+    t.string   "name",        limit: 45,  null: false
+    t.string   "mobile",      limit: 45
+    t.string   "address",     limit: 500, null: false
+    t.string   "living_area", limit: 255
+    t.integer  "default",     limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -122,8 +156,8 @@ ActiveRecord::Schema.define(version: 20160308082923) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "nickname",           limit: 255
+    t.integer  "community_id",       limit: 8
   end
-
 
   create_table "wechats", force: :cascade do |t|
     t.string   "auth_access_token",             limit: 255

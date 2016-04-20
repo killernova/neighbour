@@ -1,6 +1,5 @@
 class Photo < ActiveRecord::Base
-  belongs_to :groupbuy
-  belongs_to :event
+  belongs_to :activity
   belongs_to :comment
   belongs_to :topic
   #mount_uploader :image, PictureUploader
