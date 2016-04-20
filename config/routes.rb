@@ -77,7 +77,7 @@ RailsOnForum::Application.routes.draw do
 
 
    resource :home, only: [:index]
-   root to: 'home#index'
+   root to: 'community_news#index'
 
   #end
 end
