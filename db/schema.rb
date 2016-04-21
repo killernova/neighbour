@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421100219) do
+ActiveRecord::Schema.define(version: 20160421100722) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -138,7 +138,6 @@ ActiveRecord::Schema.define(version: 20160421100219) do
   create_table "users", force: :cascade do |t|
     t.string   "username",           limit: 255,               null: false
     t.string   "name",               limit: 255
-    t.string   "mobile",             limit: 255,               null: false
     t.string   "sex",                limit: 1,   default: "0"
     t.string   "email",              limit: 255
     t.string   "password_digest",    limit: 255
@@ -153,6 +152,7 @@ ActiveRecord::Schema.define(version: 20160421100219) do
     t.integer  "community_id",       limit: 8
     t.string   "weixin_openid",      limit: 255
     t.string   "avatar",             limit: 500
+    t.string   "mobile",             limit: 15
   end
 
   create_table "wechats", force: :cascade do |t|
