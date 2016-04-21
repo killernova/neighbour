@@ -1,0 +1,20 @@
+<% provide :title, '社区服务' %>
+<div class="show-community-service">
+  <div class="row service-title">
+    <div class="columns small-10 small-offset-1">
+      <h3 class="text-center"><%= @community_service.title %></h3>
+    </div>
+  </div>
+
+  <div class="row sub-title-community-service">
+    <div class="columns small-10 small-offset-1">
+      <%= render partial: 'sub_title', locals: { community_service: @community_service } %>
+    </div>
+  </div>
+
+  <div class="row service-content">
+    <div class="columns small-10 small-offset-1">
+      <%= simple_format @community_service.content %>
+    </div>
+  </div>
+</div>

@@ -6,12 +6,12 @@
       @users_active = 'active'
     when 'community_news'
       @news_active = 'active'
-    when 'events'
-      @events_active = 'active'  
+    when 'community_services'
+      @service_active = 'active'  
     when 'searchs'
       @searchs_active = 'active'
-    else
-      @forums_active = 'active'
+    when 'topics'
+      @topics_active = 'active'
   end
 %>
 <div class="icon-bar four-up" role="navigation" id="bottomNav">
@@ -21,10 +21,10 @@
   <%=link_to community_news_index_path,class: "item #{@news_active}" do%>
     <i class="fa fa-cart-plus"></i>
   <%end%>
-  <%=link_to '#',class: "item #{@events_active}" do%>
+  <%=link_to community_services_path,class: "item #{@service_active}" do%>
     <i class="fa fa-calendar"></i>
   <%end%>
-  <%=link_to '#',class: "item #{@forums_active}" do%>
+  <%=link_to topics_path, class: "item #{@topics_active}" do%>
     <i class="fa fa-bullhorn"></i>
   <%end%>
   <%if current_user

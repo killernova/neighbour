@@ -1,4 +1,6 @@
 RailsOnForum::Application.routes.draw do
+  resources :topics
+  resources :community_services
   resources :communities
   resources :community_news
   resources :activities

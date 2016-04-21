@@ -1,46 +1,20 @@
-<% provide :title, t(:forum) %>
-<div class="row">
-  <div class="columns small-12">
-    <div class="topics panel  radius ">
-      <h2><%= @topic.title %></h2>
-      <div class="topic-content">
-      <div><%= @topic.body.html_safe  %></div>
-       <% if photos = @topic.photos %>
-            <% photos.each do |photo| %>
-              <%= image_tag photo.image %>
-            <% end %>
-        <% end %>
-
-      
-      <%= topic_info(@topic) %>
-      </div>
-      <p>   
-        <% if current_user == @topic.user %>
-        <%= link_to '<i class="fa fa-pencil"></i> '.html_safe+t(:edit), edit_topic_path(@topic), class:"tiny button radius" %>
-        <%= link_to '<i class="fa fa-times"></i> '.html_safe+t(:delete), @topic,
-        method: :delete,
-        class:"tiny button alert radius",
-         data: {confirm: 'Delete?'} %>
-         <% end %>
-       </p>
-     </div>
-   </div>
- </div>
- <div class="row">
-  <div class="columns small-12 panel">    
-    <div class="comments">    
-      <%=render 'comments/form' ,:locals=>{@parent=>@topic,@comment=>@comment} if signed_in? %>
-      <h4><i class="fa fa-comment"></i><%=t(:comments)%> (<%= @topic.comments_count %>)</h4><hr>
-      <div class="comments-list">
-        <%= render @comments %>
-      </div>
-      <% if @active %>
-      <a style="width:100%" href="#" class="more-comments tiny expanded button" data-parent="<%= params[:controller].gsub(/\w$/, '') %>" data-count="<%= @topic.comments.count %>" data-id="<%= @topic.id %>" data-url="<%= topics_more_comments_path %>"><%= t(:more) %></a>
-      <% end %>
+<% provide :title, '社区论坛' %>
+<div class="show-community-topic">
+  <div class="row topic-title">
+    <div class="columns small-10 small-offset-1">
+      <h3 class="text-center"><%= @topic.title %></h3>
     </div>
-    <div>
-     <!--  <%= link_to t(:new_comment), new_topic_comment_path(@topic),
-     class:"tiny button radius" if signed_in? %> -->
-   </div>
- </div>
+  </div>
+
+  <div class="row sub-title-community-topic">
+    <div class="columns small-10 small-offset-1">
+      <%= render partial: 'sub_title', locals: { topic: @topic } %>
+    </div>
+  </div>
+
+  <div class="row topic-content">
+    <div class="columns small-10 small-offset-1">
+      <%= simple_format @topic.content %>
+    </div>
+  </div>
 </div>

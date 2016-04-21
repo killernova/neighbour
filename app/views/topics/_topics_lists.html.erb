@@ -1,0 +1,16 @@
+
+<% topics.each_with_index do |topic, index| %>
+<div class="row">
+  <div class="columns small-10 small-offset-1">
+    <%= link_to topic_path(topic) do %>
+    <h3 class="title"><%= topic.title %></h3>
+    <div class="subtitle">
+      <%= render partial: 'sub_title', locals: { topic: topic } %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<% if index < topics.length - 1 %>
+<hr />
+<% end %>
+<% end %>

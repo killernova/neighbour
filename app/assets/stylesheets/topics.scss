@@ -1,0 +1,22 @@
+$light-slate-gray: #6D7B8D;
+$primary-color: #008CBA;
+
+/*********** Show ************/
+.show-community-topic {
+  h3 {
+    font-weight: 500;
+  }
+  .sub-title-community-topic {
+    color: $light-slate-gray;
+    font-size: 0.9rem;
+    .owner, .community-name {
+      padding-left: 10px;
+    }
+  }
+  .topic-title {
+    margin-top: 20px;
+  }
+  .topic-content {
+    margin-top: 20px;
+  }
+}

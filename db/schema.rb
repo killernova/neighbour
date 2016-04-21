@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419103431) do
+ActiveRecord::Schema.define(version: 20160420105612) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -80,11 +80,18 @@ ActiveRecord::Schema.define(version: 20160419103431) do
   add_index "community_news", ["community_id"], name: "index_community_news_on_community_id", using: :btree
   add_index "community_news", ["user_id"], name: "index_community_news_on_user_id", using: :btree
 
-  create_table "forums", force: :cascade do |t|
-    t.string "name", limit: 255, null: false
+  create_table "community_services", force: :cascade do |t|
+    t.integer  "user_id",      limit: 8
+    t.string   "title",        limit: 50
+    t.text     "content",      limit: 65535
+    t.integer  "community_id", limit: 8
+    t.string   "tag",          limit: 20
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
-  add_index "forums", ["name"], name: "index_forums_on_name", unique: true, using: :btree
+  add_index "community_services", ["community_id"], name: "index_community_services_on_community_id", using: :btree
+  add_index "community_services", ["user_id"], name: "index_community_services_on_user_id", using: :btree
 
   create_table "photos", force: :cascade do |t|
     t.string   "image",        limit: 255
@@ -107,24 +114,13 @@ ActiveRecord::Schema.define(version: 20160419103431) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.string   "title",          limit: 255,               null: false
-    t.text     "body",           limit: 65535,             null: false
-    t.integer  "comments_count", limit: 4,     default: 0
-    t.integer  "user_id",        limit: 4
-    t.integer  "forum_id",       limit: 4
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "agree",          limit: 4,     default: 0
-    t.integer  "disagree",       limit: 4,     default: 0
-    t.integer  "recommend",      limit: 4
-    t.string   "zh_title",       limit: 255
-    t.string   "zh_body",        limit: 5000
-    t.string   "en_title",       limit: 255
-    t.string   "en_body",        limit: 5000
+    t.integer  "user_id",      limit: 8
+    t.integer  "community_id", limit: 8
+    t.string   "title",        limit: 50
+    t.text     "content",      limit: 65535
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
-
-  add_index "topics", ["forum_id"], name: "index_topics_on_forum_id", using: :btree
-  add_index "topics", ["user_id"], name: "index_topics_on_user_id", using: :btree
 
   create_table "user_addresses", force: :cascade do |t|
     t.integer  "user_id",     limit: 4

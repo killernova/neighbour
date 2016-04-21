@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :user_addresses, dependent: :destroy
   belongs_to :community
   has_many :community_news
+  has_many :community_services, dependent: :destroy
  
 
 

@@ -1,0 +1,40 @@
+
+
+<%= form_for @community_service do |f| %>
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.hidden_field :community_id, value: current_user.community_id %>
+<div class="row">
+  <div class="columns small-12">
+    <%= f.text_field :title, class: 'form-control', placeholder: '标题' %>
+  </div>
+</div>
+
+
+    <div class="row">
+      <div class="small-3 columns">
+        <label for="right-label" class="right">类型</label>
+      </div>
+      <div class="small-9 columns">
+      <input type="radio" name="community_service[tag]" value="billboard" id="billboard"><label for="billboard">居委告示</label>
+      <input type="radio" name="community_service[tag]" value="notice" id="notice"><label for="notice">物业通知</label>
+      <input type="radio" name="community_service[tag]" value="activity" id="activity"><label for="activity">社区活动</label>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="columns small-12">
+    <%= f.text_area :content, class: 'form-control', placeholder: '正文', rows: 6 %>
+  </div>
+</div>
+
+
+
+
+<div class="row">
+  <div class="columns small-12">
+    <%= f.submit '提交', class: 'button expand' %>
+  </div>
+</div>
+
+<% end %>

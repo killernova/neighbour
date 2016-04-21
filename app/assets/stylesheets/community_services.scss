@@ -1,0 +1,39 @@
+$light-slate-gray: #6D7B8D;
+$primary-color: #008CBA;
+
+/*********** Show ************/
+.show-community-service {
+  h3 {
+    font-weight: 500;
+  }
+  .sub-title-community-service {
+    color: $light-slate-gray;
+    font-size: 0.9rem;
+    .owner, .community-name, .community-tag {
+      padding-left: 10px;
+    }
+  }
+  .service-title {
+    margin-top: 20px;
+  }
+  .service-content {
+    margin-top: 20px;
+  }
+}
+
+/************ Index *****************/
+.community-service-index {
+  a {
+    color: black;
+    .subtitle {
+      color: $light-slate-gray;
+    }
+  }
+  .title {
+    text-align: left;
+    font-weight: bold;
+  }
+  .order-buttons {
+    margin-top: 20px;
+  }
+}

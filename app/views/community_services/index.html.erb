@@ -1,0 +1,28 @@
+<% provide :title, '社区服务' %>
+<div class="community-service-index">
+  <div class="order-buttons row">
+  <div class="columns small-2 small-offset-1">
+      排序:
+    </div>
+    <div class="columns small-9">
+      <div class="">
+        <div class="button-bar">
+          <ul class="button-group radius">
+            <li><a href="javascript:void(0)" class="tiny button success order-button" data-orderby="name" data-with="<%= @order_by == 'name' ? (@with == 'asc' ? 'desc' : 'asc') : 'asc' %>">社区名称<i class="fa <%= @order_by == 'name' ? (@with == 'asc' ? 'fa-caret-down' : 'fa-caret-up') : '' %>"></i></a></li>
+            <li><a href="javascript:void(0)" class="tiny button success order-button" data-orderby="tag" data-with="<%= @order_by == 'tag' ? (@with == 'asc' ? 'desc' : 'asc') : 'asc' %>">服务类别<i class="fa <%= @order_by == 'tag' ? (@with == 'asc' ? 'fa-caret-down' : 'fa-caret-up') : '' %>"></i></a></li>
+            <li><a href="javascript:void(0)" class="tiny button success order-button" data-orderby="created_at" data-with="<%= @order_by == 'created_at' ? (@with == 'asc' ? 'desc' : 'asc') : 'asc' %>">发布时间<i class="fa <%= @order_by == 'created_at' ? (@with == 'asc' ? 'fa-caret-down' : 'fa-caret-up') : '' %>"></i></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if @community_services.present? %>
+  <div class="community_services">
+    <%= render partial: 'service_lists', locals: { community_services: @community_services } %>
+  </div>
+  <% else %>
+  <div class="no-objects">暂无服务</div>
+  <% end %>
+
+  

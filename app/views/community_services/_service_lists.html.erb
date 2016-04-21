@@ -1,0 +1,16 @@
+
+<% community_services.each_with_index do |service, index| %>
+<div class="row">
+  <div class="columns small-10 small-offset-1">
+    <%= link_to community_service_path(service) do %>
+    <h3 class="title"><%= service.title %></h3>
+    <div class="subtitle">
+      <%= render partial: 'sub_title', locals: { community_service: service } %>
+    </div>
+    <% end %>
+  </div>
+</div>
+<% if index < community_services.length - 1 %>
+<hr />
+<% end %>
+<% end %>

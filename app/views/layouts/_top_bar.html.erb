@@ -32,8 +32,8 @@
     <% if current_user.role.in?(['1', '2']) %>
     <li><%=link_to '<i class="fa fa-cart-plus"></i>'.html_safe+' '+ '新增社区动态', new_community_news_path %></li>
     <% end %>
-    <li><%=link_to '<i class="fa fa-calendar"></i>'.html_safe+' '+t(:new_event), '#'%></li>
-    <li><%=link_to '<i class="fa fa-bullhorn"></i>'.html_safe+' '+t(:new_topic), '#'%></li>
+    <li><%=link_to '<i class="fa fa-calendar"></i>'.html_safe+' '+ '新增社区服务', new_community_service_path %></li>
+    <li><%=link_to '<i class="fa fa-bullhorn"></i>'.html_safe+' '+ '发表话题', new_topic_path %></li>
     <%else%>
     <li><%=link_to '<i class="fa  fa-sign-in"></i>'.html_safe+' '+t(:login), login_path%></li>
     <%end%>
