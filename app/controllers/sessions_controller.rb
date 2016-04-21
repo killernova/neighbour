@@ -44,7 +44,7 @@ class SessionsController < ApplicationController
     data = get_auth_access_token code
     access_token = data["access_token"]
     openid = data["openid"]
-    user = User.find_by(wexin_openid: openid)
+    user = User.find_by(weixin_openid: openid)
     Rails.logger.info "----openid=#{openid}"
     Rails.logger.info "----return_url=#{return_url}"
     if user && openid.present? && user.nickname.present? && user.avatar.present?
