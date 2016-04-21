@@ -5,7 +5,7 @@
     <div class="weui_cells weui_cells_access">
       <a class="weui_cell" href="<%= user_info_path(params[:id]) %>">
         <div class="weui_cell_hd">
-          <%= image_tag @user.avator if @user.avator.present? %>
+          <%= image_tag @user.avatar if @user.avatar.present? %>
         </div>
         <div class="weui_cell_bd weui_cell_primary">
           <div class="nickname"><%= @user.nickname %></div>

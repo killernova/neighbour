@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421094456) do
+ActiveRecord::Schema.define(version: 20160421100219) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -143,7 +143,6 @@ ActiveRecord::Schema.define(version: 20160421094456) do
     t.string   "email",              limit: 255
     t.string   "password_digest",    limit: 255
     t.string   "role",               limit: 1,   default: "0"
-    t.string   "avator",             limit: 500
     t.string   "profession",         limit: 45
     t.string   "location",           limit: 45
     t.integer  "comments_count",     limit: 4,   default: 0
@@ -153,6 +152,7 @@ ActiveRecord::Schema.define(version: 20160421094456) do
     t.string   "nickname",           limit: 255
     t.integer  "community_id",       limit: 8
     t.string   "weixin_openid",      limit: 255
+    t.string   "avatar",             limit: 500
   end
 
   create_table "wechats", force: :cascade do |t|
