@@ -2,6 +2,7 @@
 require 'rest-client'
 require 'open-uri'
 class SessionsController < ApplicationController
+  skip_before_action :force_sign_in
 
   def new
     if signed_in?
@@ -15,8 +16,8 @@ class SessionsController < ApplicationController
     if user && user.authenticate(params[:session][:password])
       login(user)
       redirect_to root_url, notice: '登录成功'
-    else        
-      flash[:error] = "账户名或密码错误"      
+    else
+      flash[:error] = "账户名或密码错误"
       redirect_to login_url
     end
   end
@@ -29,7 +30,7 @@ class SessionsController < ApplicationController
   def auto_login
     session[:return_url] = params[:return_url]
     state = rand(30000).to_s.ljust(5, '0')
-    redirect_url = CGI.escape 'http://foodie.trade-v.com/sessions/callback?return_url=' + params[:return_url]
+    redirect_url = CGI.escape 'http://ljt.trade-v.com/sessions/callback?return_url=' + params[:return_url]
     url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=#{WX_APP_ID}&redirect_uri=#{redirect_url}&response_type=code&scope=snsapi_userinfo&state=#{state}#wechat_redirect"
     redirect_to url
   end
@@ -39,7 +40,7 @@ class SessionsController < ApplicationController
     session.delete(:return_url)
     code = params[:code]
     now = Time.zone.now.to_i
-    
+
     data = get_auth_access_token code
     access_token = data["access_token"]
     openid = data["openid"]
@@ -59,31 +60,20 @@ class SessionsController < ApplicationController
       end
       login user
       return redirect_to return_url || root_path
-      
-    #elsif return_url.split('?').first.in? ['http://foodie.trade-v.com/register', 'http://foodie.trade-v.com/login']
-     # data = get_user_info(openid, access_token)
-      #session[:openid] = data["openid"]
-      # session[:avatar] = data["headimgurl"]
-      # session[:nickname] = data["nickname"]
-      # Rails.logger.info "---------------#{data}"
-      # Rails.logger.info "---------------#{session[:openid]}"
-      # Rails.logger.info "---------------#{session[:nickname]}"
-      # Rails.logger.info "---------------return_url=#{return_url}"
-      # redirect_to register_path
-    # else
-      # data = get_user_info(openid, access_token)
-      # session[:openid] = data["openid"]
-      # session[:avatar] = data["headimgurl"]
-      # session[:nickname] = data["nickname"]
+
     else
       data = get_user_info(openid, access_token)
       Rails.logger.info "---------------data => #{data}"
+      Rails.logger.info "---------------nickname => #{user.try(:nickname)}"
+      Rails.logger.info "---------------user_id => #{user.try(:id)}"
       if user && openid.present? && (user.nickname.nil? || user.avatar.nil?)
         user.update_columns nickname: data['nickname'], avatar: data['headimgurl'], username: data['nickname']
+        Rails.logger.info "---------------nickname_after_update => #{user.try :nickname}"
+        Rails.logger.info "---------------user_id_after_update => #{user.try :id}"
         login user
         return redirect_to return_url || root_path
       else
-        new_user = User.new weixin_openid: data["openid"], avatar: data["headimgurl"], nickname: data["nickname"], username: data["nickname"], password_digest: data["openid"]
+        new_user = User.new weixin_openid: data["openid"], avatar: data["headimgurl"], nickname: data["nickname"], username: data["nickname"], password: data["openid"]
         if new_user.save
           login new_user
           return redirect_to return_url || root_path

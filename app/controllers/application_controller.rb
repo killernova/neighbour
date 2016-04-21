@@ -6,13 +6,17 @@ class ApplicationController < ActionController::Base
   include ConvertPicture
   protect_from_forgery with: :exception
   helper_method :signed_in?, :current_user,:forum_id, :cut_pic
+  before_action :force_sign_in
 
   before_action :set_locale,  except: :wechat_notify_url
-  
- 
-
 
   private
+
+  def force_sign_in
+    if !signed_in? && request.user_agent.match(/MicroMessenger/)
+      redirect_to wx_auto_login_path(return_url: request.url.gsub('localhost:5000', 'ljt.trade-v.com'))
+    end
+  end
 
   def cut_pic photo
     other_img photo, 'mini'
@@ -85,7 +89,7 @@ class ApplicationController < ActionController::Base
 
   def validate_user!
     unless signed_in?
-      redirect_to register_path(return_url: request.url.gsub('localhost:5000', 'foodie.trade-v.com')), alert: '请先登录！'
+      redirect_to register_path(return_url: request.url.gsub('localhost:5000', 'ljt.trade-v.com')), alert: '请先登录！'
     end
   end
 

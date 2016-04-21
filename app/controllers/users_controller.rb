@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 
 
       @title = session[:locale] == 'zh' ? "推荐您加入 Groupmall!" : "recommend you to join Groupmall!"
-      @img_url = 'http://foodie.trade-v.com/groupmall_logo.jpg'
+      @img_url = 'http://ljt.trade-v.com/groupmall_logo.jpg'
       @desc = session[:locale] == 'zh' ? 'Groupmall 是拼人品的团购、聚会和论坛。' : 'Groupmall is trusted based group buying, meetups and forums.'
       @timestamp = Time.now.to_i
       @appId = WX_APP_ID
@@ -94,10 +94,10 @@ class UsersController < ApplicationController
         :noncestr => @noncestr,
         :jsapi_ticket => @jsapi_ticket,
         :timestamp => @timestamp,
-        :url => request.url.gsub("localhost:5000", "foodie.trade-v.com")
+        :url => request.url.gsub("localhost:5000", "ljt.trade-v.com")
       }
       @sign = create_sign_for_js post_params
-      @a = [request.url, post_params, request.url.gsub("trade", "foodie.trade-v.com")]
+      @a = [request.url, post_params, request.url.gsub("trade", "ljt.trade-v.com")]
     end
 
     type = params[:type] || 'topic'
