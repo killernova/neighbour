@@ -32,20 +32,20 @@
       <%if signed_in?%>
       <% if current_user.role.in?(['1', '2']) %>
       <li><%=link_to new_community_news_path do %>
-        <div class="<%= has_detail_info %>" data-url="<%= new_community_news_url %>"><i class="fa fa-cart-plus"></i>新增社区动态</div>
+        <div class="<%= has_detail_info %>" data-url="<%= new_community_news_path %>"><i class="fa fa-cart-plus"></i>新增社区动态</div>
         <% end %>
       </li>
       <% end %>
 
       <li>
         <%=link_to new_community_service_path do %>
-        <div class="<%= has_detail_info %>" data-url="<%= new_community_service_url %>"><i class="fa fa-calendar"></i>新增社区服务</div>
+        <div class="<%= has_detail_info %>" data-url="<%= new_community_service_path %>"><i class="fa fa-calendar"></i>新增社区服务</div>
         <% end %>
       </li>
 
       <li>
         <%=link_to new_topic_path do %>
-        <div class="<%= has_detail_info %>" data-url="<%= new_topic_url %>"><i class="fa fa-bullhorn"></i>发表话题</div>
+        <div class="<%= has_detail_info %>" data-url="<%= new_topic_path %>"><i class="fa fa-bullhorn"></i>发表话题</div>
         <% end %>
       </li>
       

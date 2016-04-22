@@ -1,5 +1,5 @@
 <% if @result[:msg] == 'ok' %>
-location.href = "<%= @url %>";
+location.pathname = "<%= @url %>";
 <% else %>
 var msg = "<%= @result[:msg_detail] %>";
 $('.add-info .errmsg').text(msg);
