@@ -156,6 +156,22 @@ class UsersController < ApplicationController
   end
 end
 
+def add_info
+  user = User.find_by(id: params[:user_id])
+  begin
+    community = Community.find_or_initialize_by(name: params[:community_name])
+  rescue ActiveRecord::RecordNotUnique
+    retry
+  end
+  if community.save
+    user.update(mobile: params[:mobile], community_id: community.id, location: params[:location])
+    @result = {msg: 'ok'}
+    @url = params[:to_url]
+  else
+    @result = {msg: 'failed', msg_detail: "can not create or find certain community with name of #{params[:community_name]} "}
+  end
+end
+
 def destroy
   logout
   @user.destroy

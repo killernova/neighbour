@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=48fa2e3376dc45e6b62252aec36f637b"></script>
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=48fa2e3376dc45e6b62252aec36f637b"></script>
+  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
   <title><%#= content_for?(:title) ? yield(:title) : t(:site_name) %>
     <%=t(:site_name) %>
@@ -18,24 +18,24 @@
 </head>
 
 <body onload="<%=@onload %>" >
-<script>
+  <script>
 
-function isWeixinBrowser(){
-    var ua = navigator.userAgent.toLowerCase();
+    function isWeixinBrowser(){
+      var ua = navigator.userAgent.toLowerCase();
       //  alert(ua);
       return (/micromessenger/.test(ua)) ? true : false ;
     }
 
     var is_weixin_browser = isWeixinBrowser();
-  if(is_weixin_browser) {
-  <% if (current_user.nil? && session[:openid].nil?) || (current_user.nil? && controller_name != 'users' && session[:openid].nil?) %>
-    var return_url = encodeURIComponent(location.href);
+    if(is_weixin_browser) {
+      <% if (current_user.nil? && session[:openid].nil?) || (current_user.nil? && controller_name != 'users' && session[:openid].nil?) %>
+      var return_url = encodeURIComponent(location.href);
 
-    var url = "http://ljt.trade-v.com/sessions/auto_login?return_url=" + return_url;
+      var url = "http://ljt.trade-v.com/sessions/auto_login?return_url=" + return_url;
     //alert(url);
     location.href = url;
-  <% end %>
-}
+    <% end %>
+  }
 </script>
 
 <div class="off-canvas-wrap" data-offcanvas>
@@ -64,28 +64,36 @@ function isWeixinBrowser(){
         </footer>
       </div>
     </article>
-  <!-- close the off-canvas menu -->
-  <a class="exit-off-canvas"></a>
+    <!-- close the off-canvas menu -->
+    <a class="exit-off-canvas"></a>
 
   </div>
 </div>
 
- 
-  <%=render '/layouts/menu'%>
 
-  
- 
-  <link rel="stylesheet" media="screen" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <style type='text/css'>
+<%=render '/layouts/menu'%>
+
+<% if current_user %>
+<div class="add-info-div hidden">
+  <div class="background-layer"></div>
+  <div class="add-info">
+    <%= render '/layouts/add_info' %>
+  </div>
+</div>
+<% end %>
+
+
+<link rel="stylesheet" media="screen" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+<style type='text/css'>
   body {
     font-size: 0.9em;
   }
-  </style>
-  
+</style>
 
-  <script>
-    $(function(){ $(document).foundation(); });
-    $(document).ready(function(){
+
+<script>
+  $(function(){ $(document).foundation(); });
+  $(document).ready(function(){
     $(".show-comments").on("click", function(event) {
       event.preventDefault();
       if($('.comments').length > 0) {
@@ -100,14 +108,14 @@ function isWeixinBrowser(){
       //htmlobj = $.ajax({url: url ,async:false});
 
       var htmlobj = '';
-     $.ajax({
-      url: url,
-      type: 'get',
-      async: false,
-      success: function(e) {
-        htmlobj = e;
-      }
-     });
+      $.ajax({
+        url: url,
+        type: 'get',
+        async: false,
+        success: function(e) {
+          htmlobj = e;
+        }
+      });
 
       var obj = $(this).parent().parent();
       if (url.indexOf("forum")>0){
@@ -119,25 +127,25 @@ function isWeixinBrowser(){
         // $(".comments").stop().animate({
         //     scrollTop: $(".comments")[0].scrollHeight
         // }, 200);
+      });
   });
-});
-    $(".show-participants").on("click",  function(event) {
-      event.preventDefault();
-      if($('.participants').length > 0) {
-        $('.participants').remove();
-        $('.show-more-participants').remove();
-        return;
-      }
-
-      $(".comments").remove();
-      $(".participants").remove();
+  $(".show-participants").on("click",  function(event) {
+    event.preventDefault();
+    if($('.participants').length > 0) {
+      $('.participants').remove();
       $('.show-more-participants').remove();
+      return;
+    }
 
-      var url = $(this).data('url');
-      var id = $(this).data('id');
-      var more = $(this).data('more');
-      var controllerName = $(this).data('controllername');
-      var linkUrl = "/" + controllerName + '/' + id;
+    $(".comments").remove();
+    $(".participants").remove();
+    $('.show-more-participants').remove();
+
+    var url = $(this).data('url');
+    var id = $(this).data('id');
+    var more = $(this).data('more');
+    var controllerName = $(this).data('controllername');
+    var linkUrl = "/" + controllerName + '/' + id;
      // htmlobj = $.ajax({url: url ,async:false});
      var htmlobj = '';
      $.ajax({
@@ -147,8 +155,8 @@ function isWeixinBrowser(){
       success: function(e) {
         htmlobj = e;
       }
-     });
-      $(this).parent().parent().append('<div class="participants" style="margin:0px;padding:0px;">'+htmlobj.replace('fa-trash', '') + '</div>');
+    });
+     $(this).parent().parent().append('<div class="participants" style="margin:0px;padding:0px;">'+htmlobj.replace('fa-trash', '') + '</div>');
       //$(this).parent().parent().append('<div class="more"><a href=' + linkUrl + '></a></div>');
     });
 

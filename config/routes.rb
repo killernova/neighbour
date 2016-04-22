@@ -23,6 +23,7 @@ RailsOnForum::Application.routes.draw do
   get 'tags/destroy'
 
   post 'topics/more_comments', to: 'topics#more_comments'
+  post 'users/add_info', to: 'users#add_info', as: :add_info
 
   namespace :admin do
     resources :reports

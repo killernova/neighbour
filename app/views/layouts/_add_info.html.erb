@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="columns small-10 small-offset-1">
+    <div class="add-info-title text-center">请先完善个人信息</div>
+    <%= form_tag add_info_path, remote: true, class: 'add-info-form'  do %>
+    <%= hidden_field_tag :user_id, current_user.id %>
+    <%= hidden_field_tag :to_url, '', class: 'to-url' %>
+    <%= text_field_tag :location, current_user.location, placeholder: '详细地址', class: 'location-input' %>
+    <%= text_field_tag :mobile, current_user.mobile, placeholder: '手机', class: 'mobile-input' %>
+    <%= text_field_tag :community_name, current_user.community.try(:name), placeholder: '小区名字', class: 'community-name-input' %>
+    <% end %>
+    <div class="errmsg"></div>
+    <ul class="button-group even-2">
+      <li><a href="javascript:void(0)" class="button expand secondary submit-button alert cancel-add-info-button">取消</a></li>
+      <li><a href="javascript:void(0)" class="button expand cancel-button submit-add-info-button">提交</a></li>
+    </ul>
+  </div>
+</div>

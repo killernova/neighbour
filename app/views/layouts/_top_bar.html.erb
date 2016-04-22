@@ -1,15 +1,15 @@
 
 <div class="header">
- 
 
-<nav class="tab-bar">
-  <section class="left-small">
-    <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
-  </section>
 
-  <section class="middle tab-bar-section">
+  <nav class="tab-bar">
+    <section class="left-small">
+      <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+    </section>
+
+    <section class="middle tab-bar-section">
      <h1 class="title"><%= content_for?(:title) ? yield(:title) : t(:site_name) %></h1>
-  </section>
+   </section>
 
   <!-- <section class="right-small">
     <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
@@ -27,18 +27,34 @@
       <%=link_to '<i class="fa fa-language"></i>'.html_safe+' English', 'javascript:void(0);', onclick: 'change_locale(this)', 'data-locale' => 'en', class: 'change-loc' %>
       <%end%> 
     </li>
-    <li><%=link_to ' <i class="fa fa-search"></i>'.html_safe+' '+t(:search),search_path, style: 'display:none'%></li>
-    <%if signed_in?%>
-    <% if current_user.role.in?(['1', '2']) %>
-    <li><%=link_to '<i class="fa fa-cart-plus"></i>'.html_safe+' '+ '新增社区动态', new_community_news_path %></li>
-    <% end %>
-    <li><%=link_to '<i class="fa fa-calendar"></i>'.html_safe+' '+ '新增社区服务', new_community_service_path %></li>
-    <li><%=link_to '<i class="fa fa-bullhorn"></i>'.html_safe+' '+ '发表话题', new_topic_path %></li>
-    <%else%>
-    <li><%=link_to '<i class="fa  fa-sign-in"></i>'.html_safe+' '+t(:login), login_path%></li>
-    <%end%>
-    <li class="divider hide-for-small"></li>
-    
-  </ul>
-</aside>
+    <li>
+      <%=link_to ' <i class="fa fa-search"></i>'.html_safe+' '+t(:search),search_path, style: 'display:none'%></li>
+      <%if signed_in?%>
+      <% if current_user.role.in?(['1', '2']) %>
+      <li><%=link_to new_community_news_path do %>
+        <div class="<%= has_detail_info %>" data-url="<%= new_community_news_url %>"><i class="fa fa-cart-plus"></i>新增社区动态</div>
+        <% end %>
+      </li>
+      <% end %>
+
+      <li>
+        <%=link_to new_community_service_path do %>
+        <div class="<%= has_detail_info %>" data-url="<%= new_community_service_url %>"><i class="fa fa-calendar"></i>新增社区服务</div>
+        <% end %>
+      </li>
+
+      <li>
+        <%=link_to new_topic_path do %>
+        <div class="<%= has_detail_info %>" data-url="<%= new_topic_url %>"><i class="fa fa-bullhorn"></i>发表话题</div>
+        <% end %>
+      </li>
+      
+      <%else%>
+      <li><%=link_to '<i class="fa  fa-sign-in"></i>'.html_safe+' '+t(:login), login_path%></li>
+      <%end%>
+      
+      <li class="divider hide-for-small"></li>
+
+    </ul>
+  </aside>
 </div>
