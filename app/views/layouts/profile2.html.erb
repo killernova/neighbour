@@ -19,33 +19,23 @@
     <% if current_user && current_user == User.find_by(id: params[:id]) %>
     <div class="weui_cells_title"><%= t(:histroy) %></div>
     <div class="weui_cells weui_cells_access">
-      <%= link_to '#',class: 'weui_cell' do %>
+      
+
+      <%= link_to my_community_services_path,class: 'weui_cell' do %>
       <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-bars"></i><%= t(:my_orders) %></div>
+        <div class="type"><%= t(:my_community_services) %></div>
       </div>
       <div class="weui_cell_ft"></div>
       <% end %>
 
-      <%= link_to '#',class: 'weui_cell' do %>
+      <%= link_to my_topics_path,class: 'weui_cell' do %>
       <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><%= t(:my_groupbuys) %></div>
+        <div class="type"><%= t(:my_topics) %></div>
       </div>
       <div class="weui_cell_ft"></div>
       <% end %>
 
-      <%= link_to '#',class: 'weui_cell' do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><%= t(:my_events) %></div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
-
-      <%= link_to '#',class: 'weui_cell' do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><%= t(:my_forums) %></div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
+      
     </div>
 <% end %>
 
@@ -57,6 +47,8 @@
       </div>
       <div class="weui_cell_ft"></div>
       <% end %>
+      </div>
+
 
     
     <div class="weui_cells_title"><%= t(:others) %></div>

@@ -1,7 +1,7 @@
 #encoding:utf-8
 class UsersController < ApplicationController
   before_action :select_user, only: [:show, :edit, :update, :destroy, :user_info, :my_orders]
-  before_action only: [:edit, :update, :destroy, :my_orders, :my_groupbuys, :my_events, :my_topics] do
+  before_action only: [:edit, :update, :destroy] do
     validate_permission!(select_user)
   end
   
@@ -22,12 +22,8 @@ class UsersController < ApplicationController
     
   end
 
-  def my_groupbuys
-    @my_groupbuys = current_user.try(:groupbuys)
-  end
-
-  def my_events
-    @my_events = current_user.try(:events)
+  def my_community_services
+    @my_community_services = current_user.try(:community_services)
   end
 
   def my_topics

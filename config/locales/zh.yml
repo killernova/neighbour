@@ -478,7 +478,7 @@ zh:
   others: 其它
   my_groupbuys: 我的团购
   my_events: 我的活动
-  my_topics: 我的论坛
+  my_topics: 我的话题
   login: 登录
   first_weight: 首重
   additional_weight: 续重
@@ -504,4 +504,5 @@ zh:
   password: 密码
   password_confirmation: 确认密码
   about_groupmall: 关于GroupMall
+  my_community_services: 我的服务
 

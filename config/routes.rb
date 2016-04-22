@@ -25,6 +25,10 @@ RailsOnForum::Application.routes.draw do
   post 'topics/more_comments', to: 'topics#more_comments'
   post 'users/add_info', to: 'users#add_info', as: :add_info
 
+
+  get 'users/my_community_services', to: 'users#my_community_services', as: :my_community_services
+  get 'users/my_topics', to: 'users#my_topics', as: :my_topics
+
   namespace :admin do
     resources :reports
       #post "downorder", :on=>:collection

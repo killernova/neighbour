@@ -49,12 +49,12 @@ $(document).ready ->
     $('.add-info .to-url').val(url)
 
     # form 居中对齐
-    div_width = $('.add-info').width()
-    doc_width = $(document).width()
-    set_left = (doc_width - div_width) / 2
-    $('.add-info').css('left', set_left + 'px')
-    console.log set_left
-    console.log $('.add-info').css('left')
+    # div_width = $('.add-info').width()
+    # doc_width = $(document).width()
+    # set_left = (doc_width - div_width) / 2
+    # $('.add-info').css('left', set_left + 'px')
+    # console.log set_left
+    # console.log $('.add-info').css('left')
 
 
 
