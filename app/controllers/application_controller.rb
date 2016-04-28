@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def force_sign_in
     if !signed_in? && request.user_agent.match(/MicroMessenger/)
-      redirect_to wx_auto_login_path(return_url: request.url.gsub('localhost:5000', 'ljt.trade-v.com'))
+      redirect_to wx_auto_login_path(return_url: request.url.gsub('localhost:5500', 'ljt.trade-v.com'))
     end
   end
 
