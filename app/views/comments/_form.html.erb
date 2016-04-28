@@ -2,7 +2,7 @@
   <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
   <input type="hidden" name="parent" value="comments">
 </form>
-<%= form_for form_params(@parent, @comment), data: {abide: ''} do |f| %>
+<%= form_for @comment, data: {abide: ''} do |f| %>
 <input type="hidden" , name='photo_ids' value="" class="pic-ids">
 <input type="hidden" , name='delete_ids' value="" class="delete-ids">
 <input type="hidden" , name='comment_parent' value="<%= params[:controller] %>">

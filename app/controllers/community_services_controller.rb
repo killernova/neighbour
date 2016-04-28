@@ -19,7 +19,7 @@ class CommunityServicesController < ApplicationController
   end
 
   def show
-    @community_service = CommunityService.includes(:photos, :comments, :user).find_by(id: params[:id])
+    @parent = @community_service = CommunityService.includes(:photos, :comments, :user).find_by(id: params[:id])
     @photos = @community_service.photos
     @comments = @community_service.comments.includes(:user)
     @comment = @community_service.comments.new

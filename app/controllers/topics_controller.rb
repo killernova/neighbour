@@ -4,7 +4,7 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.includes(:photos, :comments, :user).find_by(id: params[:id])
+    @parent = @topic = Topic.includes(:photos, :comments, :user).find_by(id: params[:id])
     @photos = @topic.photos
     @comments = @topic.comments.includes(:user)
     @comment = @topic.comments.new
