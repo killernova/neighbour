@@ -11,7 +11,7 @@ thumbnailWidth: 40,
 thumbnailHeight: 40,
 maxFiles: 15,
 dictRemoveFile: removeFile,
-dictDefaultMessage: "<div class='button tiny' sytle='background-color:#008CBA;'><i class='fa fa-picture-o'></i>&nbsp;&nbsp;<span>Upload Pictures</span></div>",
+dictDefaultMessage: "<div class='button tiny' sytle='background-color:#008CBA;'><i class='fa fa-picture-o'></i>&nbsp;&nbsp;<span>上传图片</span></div>",
 
   // Prevents Dropzone from uploading dropped files immediately
   autoProcessQueue: true,
@@ -24,7 +24,7 @@ dictDefaultMessage: "<div class='button tiny' sytle='background-color:#008CBA;'>
       //myDropzone.processQueue(); // Tell Dropzone to process all queued files.
    // });
 
-    // You might want to show the submit button only when 
+    // You might want to show the submit button only when
     // files are dropped here:
     this.on("addedfile", function() {
       // Show submit button here and/or inform user to click it.

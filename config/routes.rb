@@ -17,7 +17,7 @@ RailsOnForum::Application.routes.draw do
 
   get 'tags/create'
 
-  
+
   get 'tags/update'
 
   get 'tags/destroy'
@@ -47,7 +47,7 @@ RailsOnForum::Application.routes.draw do
     resources :tags, only: [:create, :update, :destroy]
 
     #mount Ckeditor::Engine => '/ckeditor'
-    
+
     get    '/login',     to: 'sessions#new',     as: :login
     delete '/logout', to: 'sessions#destroy', as: :logout
     resource  :session, only: :create
@@ -60,10 +60,10 @@ RailsOnForum::Application.routes.draw do
 
     resources :topics, except: [:index, :new, :create]  do
       resources :comments, only: [:new, :create,:index]
-    end 
+    end
 
 
-    resources :comments, only: [:edit, :update, :destroy]
+    resources :comments, only: [:edit, :update, :destroy, :new, :create]
 
 
     resources :users,   only: [:create, :update, :destroy] do
@@ -71,7 +71,7 @@ RailsOnForum::Application.routes.draw do
    end
    get '/users', to: 'users#index'
 
-   
+
    get '/wechat_notify_url', to: 'participants#wechat_notify_url'
    get '/register',    to: 'users#new',  as: :register
    get '/:id',         to: 'users#show', as: :profile

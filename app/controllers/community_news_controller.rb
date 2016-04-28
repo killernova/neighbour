@@ -10,6 +10,8 @@ class CommunityNewsController < ApplicationController
     @community_news = CommunityNews.new(community_news_params)
     if current_user
       if @community_news.save
+        photo_ids = params[:photo_ids].split(',')
+        Photo.where(id: photo_ids).update_all(community_news_id: @community_news.id)
         redirect_to @community_news
       else
         render 'new'
@@ -19,6 +21,7 @@ class CommunityNewsController < ApplicationController
 
   def show
     @community_news = CommunityNews.find_by(id: params[:id])
+    @photos = @community_news.photos
   end
 
   def index

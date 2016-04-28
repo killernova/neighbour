@@ -1,5 +1,5 @@
 class CommunityServicesController < ApplicationController
-  
+
 
   def new
     @community_service = CommunityService.new
@@ -9,6 +9,8 @@ class CommunityServicesController < ApplicationController
     @community_service = CommunityService.new(community_service_params)
     if current_user
       if @community_service.save
+        photo_ids = params[:photo_ids].split(',')
+        Photo.where(id: photo_ids).update_all(community_service_id: @community_service.id)
         redirect_to @community_service
       else
         render 'new'
@@ -17,7 +19,10 @@ class CommunityServicesController < ApplicationController
   end
 
   def show
-    @community_service = CommunityService.find_by(id: params[:id])
+    @community_service = CommunityService.includes(:photos, :comments, :user).find_by(id: params[:id])
+    @photos = @community_service.photos
+    @comments = @community_service.comments.includes(:user)
+    @comment = @community_service.comments.new
   end
 
   def index

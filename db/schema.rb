@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421100722) do
+ActiveRecord::Schema.define(version: 20160428075915) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -44,13 +44,14 @@ ActiveRecord::Schema.define(version: 20160421100722) do
   add_index "ckeditor_assets", ["assetable_type", "type", "assetable_id"], name: "idx_ckeditor_assetable_type", using: :btree
 
   create_table "comments", force: :cascade do |t|
-    t.text     "body",       limit: 65535,             null: false
-    t.integer  "user_id",    limit: 4
-    t.integer  "topic_id",   limit: 4
+    t.text     "body",                 limit: 65535,             null: false
+    t.integer  "user_id",              limit: 4
+    t.integer  "topic_id",             limit: 4
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "agree",      limit: 4,     default: 0
-    t.integer  "disagree",   limit: 4,     default: 0
+    t.integer  "agree",                limit: 4,     default: 0
+    t.integer  "disagree",             limit: 4,     default: 0
+    t.integer  "community_service_id", limit: 4
   end
 
   add_index "comments", ["topic_id"], name: "index_comments_on_topic_id", using: :btree
@@ -81,27 +82,30 @@ ActiveRecord::Schema.define(version: 20160421100722) do
   add_index "community_news", ["user_id"], name: "index_community_news_on_user_id", using: :btree
 
   create_table "community_services", force: :cascade do |t|
-    t.integer  "user_id",      limit: 8
-    t.string   "title",        limit: 50
-    t.text     "content",      limit: 65535
-    t.integer  "community_id", limit: 8
-    t.string   "tag",          limit: 20
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "user_id",        limit: 8
+    t.string   "title",          limit: 50
+    t.text     "content",        limit: 65535
+    t.integer  "community_id",   limit: 8
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.integer  "comments_count", limit: 4,     default: 0
+    t.string   "tag",            limit: 20,    default: "其他"
   end
 
   add_index "community_services", ["community_id"], name: "index_community_services_on_community_id", using: :btree
   add_index "community_services", ["user_id"], name: "index_community_services_on_user_id", using: :btree
 
   create_table "photos", force: :cascade do |t|
-    t.string   "image",        limit: 255
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
-    t.string   "name",         limit: 255
-    t.string   "size",         limit: 255
-    t.string   "content_type", limit: 255
-    t.integer  "comment_id",   limit: 4
-    t.integer  "topic_id",     limit: 4
+    t.string   "image",                limit: 255
+    t.datetime "created_at",                       null: false
+    t.datetime "updated_at",                       null: false
+    t.string   "name",                 limit: 255
+    t.string   "size",                 limit: 255
+    t.string   "content_type",         limit: 255
+    t.integer  "comment_id",           limit: 4
+    t.integer  "topic_id",             limit: 4
+    t.integer  "community_news_id",    limit: 4
+    t.integer  "community_service_id", limit: 4
   end
 
   create_table "tags", force: :cascade do |t|
@@ -114,12 +118,13 @@ ActiveRecord::Schema.define(version: 20160421100722) do
   end
 
   create_table "topics", force: :cascade do |t|
-    t.integer  "user_id",      limit: 8
-    t.integer  "community_id", limit: 8
-    t.string   "title",        limit: 50
-    t.text     "content",      limit: 65535
-    t.datetime "created_at",                 null: false
-    t.datetime "updated_at",                 null: false
+    t.integer  "user_id",        limit: 8
+    t.integer  "community_id",   limit: 8
+    t.string   "title",          limit: 50
+    t.text     "content",        limit: 65535
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
+    t.integer  "comments_count", limit: 4
   end
 
   create_table "user_addresses", force: :cascade do |t|

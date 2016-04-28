@@ -40,6 +40,10 @@ module RailsOnForum
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :zh
 
+    # Time zone
+    config.active_record.default_timezone = :local
+    config.time_zone = 'Beijing'
+
     #for rspec
     config.generators do |g|
       g.tset_framework :rspec,

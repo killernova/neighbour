@@ -1,0 +1,18 @@
+<div class="row comments-list">
+  <div class="columns small-10 small-offset-1 show-comments-list">
+    <div class="comments-count">
+      共有<%= @parent.try(:comments_count).to_i %>条评论
+    </div>
+    <hr />
+    <%= render partial: '/comments/comment', collection: @comments %>
+  </div>
+</div>
+
+<div class="new-comments-form row">
+  <div class="columns small-10 small-offset-1 leave-comment-box">
+    <div class="leave-comment">
+      留言
+    </div>
+    <%= render partial: '/comments/form', locals: {comment: @comment} %>
+  </div>
+</div>

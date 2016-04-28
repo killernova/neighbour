@@ -13,8 +13,16 @@
   </div>
 
   <div class="row service-content">
+    <% if @photos %>
+    <% @photos.each do |pic| %>
+    <div class="columns small-10 small-offset-1">
+      <%= image_tag pic.image %>
+    </div>
+    <% end %>
+    <% end %>
     <div class="columns small-10 small-offset-1">
       <%= simple_format @community_service.content %>
     </div>
   </div>
 </div>
+<%= render '/comments/comments_list_and_form' %>

@@ -4,13 +4,18 @@ class TopicsController < ApplicationController
   end
 
   def show
-    @topic = Topic.find_by(id: params[:id])
+    @topic = Topic.includes(:photos, :comments, :user).find_by(id: params[:id])
+    @photos = @topic.photos
+    @comments = @topic.comments.includes(:user)
+    @comment = @topic.comments.new
   end
 
   def create
     @topic = Topic.new(topic_params)
     if current_user
       if @topic.save
+        photo_ids = params[:photo_ids].split(',')
+        Photo.where(id: photo_ids).update_all(topic_id: @topic.id)
         redirect_to @topic
       else
         render 'new'

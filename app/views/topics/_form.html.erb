@@ -1,23 +1,30 @@
-
-
-<%= form_for @topic do |f| %>
-<%= f.hidden_field :user_id, value: current_user.id %>
-<%= f.hidden_field :community_id, value: current_user.community_id %>
 <div class="row">
   <div class="columns small-12">
-    <%= f.text_field :title, class: 'form-control', placeholder: '标题' %>
-  </div>
-</div>
-  <div class="row">
-  <div class="columns small-12">
-    <%= f.text_area :content, class: 'form-control', placeholder: '正文', rows: 6 %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="columns small-12">
-    <%= f.submit '提交', class: 'button expand' %>
+    <%= form_for @topic do |f| %>
+    <%= f.hidden_field :user_id, value: current_user.id %>
+    <%= f.hidden_field :community_id, value: current_user.community_id %>
+    <input type="hidden" , name='photo_ids' value="" class="pic-ids">
+    <input type="hidden" , name='delete_ids' value="" class="delete-ids">
+    <div class="row">
+      <div class="columns small-12">
+        <%= f.text_field :title, class: 'form-control', placeholder: '标题' %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="columns small-12">
+        <%= f.text_area :content, class: 'form-control', placeholder: '正文', rows: 6 %>
+      </div>
+    </div>
+
+    <div>
+      <%= f.submit '提交', class:'tiny button radius right submit-new-groupbuy' %>
+    </div>
+
+    <% end %>
+    <form action="<%= photos_path %>" class="dropzone" id="my-dropzone" enctype="multipart/form-data">
+      <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token.to_s %>">
+      <input type="hidden" name="parent" value="<%= params[:controller] %>">
+    </form>
   </div>
 </div>
-
-<% end %>
