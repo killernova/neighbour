@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   before_action only: [:edit, :update, :destroy] do
     validate_permission!(select_user)
   end
-  
+
   def index
   end
 
@@ -19,7 +19,7 @@ class UsersController < ApplicationController
       end
     end
     @user = User.new
-    
+
   end
 
   def my_community_services
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
       user.update(weixin_openid: session[:openid], nickname: session[:nickname], avatar: session[:avatar])
       login user
       session[:mobile] = user.mobile
-      
+
       session.delete(:return_url)
       return redirect_to redirect_url
     end
@@ -72,12 +72,8 @@ class UsersController < ApplicationController
   end
 
   def show
-
     #微信share接口配置
     if current_user.present?
-
-
-
       @title = session[:locale] == 'zh' ? "推荐您加入 Groupmall!" : "recommend you to join Groupmall!"
       @img_url = 'http://ljt.trade-v.com/groupmall_logo.jpg'
       @desc = session[:locale] == 'zh' ? 'Groupmall 是拼人品的团购、聚会和论坛。' : 'Groupmall is trusted based group buying, meetups and forums.'
@@ -97,14 +93,17 @@ class UsersController < ApplicationController
     end
 
     type = params[:type] || 'topic'
-    
-    
+
+
     @share_alert = session[:locale] == 'zh' ? '请点击右上角的分享按钮进行分享' : 'Please click the SHARE BUTTON on the top right conner'
     render layout: "profile2", locals: {page: type}
   end
 
 
   def contact_us
+  end
+
+  def about_team
   end
 
   def user_info

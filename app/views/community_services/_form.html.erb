@@ -5,6 +5,7 @@
     <%= f.hidden_field :community_id, value: current_user.community_id %>
     <input type="hidden" , name='photo_ids' value="" class="pic-ids">
     <input type="hidden" , name='delete_ids' value="" class="delete-ids">
+    <%= f.hidden_field :address, value: @community_service.address, class: 'input-address' %>
     <div class="row">
       <div class="columns small-12">
         <%= f.text_field :title, class: 'form-control', placeholder: '标题' %>
@@ -12,13 +13,55 @@
     </div>
 
     <div class="row collapse prefix-round">
-        <div class="small-3 columns">
-          <a href="#" class="button prefix">标签</a>
-        </div>
-        <div class="small-9 columns">
-          <input type="text" placeholder="请输入标签内容">
+      <div class="small-3 columns">
+        <a href="#" class="button prefix">类别</a>
+      </div>
+      <div class="small-9 columns">
+        <%= f.text_field :tag, placeholder: '请输入类别', class: 'service-tag' %>
+      </div>
+    </div>
+
+    <div class="use-default-address">
+      <%= check_box_tag 'use_default', 1, true %>
+      使用默认地址
+    </div>
+
+    <div class="row default-address">
+      <div class="columns small-3">
+        服务地址
+      </div>
+      <div class="columns small-9">
+        <div class="address">
+          <%= @community_service.address || current_user.default_address[:address] %>
         </div>
       </div>
+    </div>
+
+    <div class="row new-address hidden">
+      <div class="city-group">
+        <div class="columns small-4">
+          <select name="province" id="province" class="city-select">
+            <option value="">--<%= t(:province) %>--</option>
+            <%= options_for_select(ChinaCity.list) %>
+          </select>
+        </div>
+        <div class="columns small-4">
+          <select name="city" id="city" class="city-select">
+            <option value="">--<%= t(:city) %>--</option>
+            <%= options_for_select(ChinaCity.list) %>
+          </select>
+        </div>
+        <div class="columns small-4">
+          <select name="area" id="area" class="city-select">
+            <option value="">--<%= t(:area) %>--</option>
+            <%= options_for_select(ChinaCity.list) %>
+          </select>
+        </div>
+      </div>
+      <div class="columns small-12 detail-address">
+        <input type="text" name="detail_address" placeholder="请输入详细地址">
+      </div>
+    </div>
 
     <div class="row">
       <div class="columns small-12">

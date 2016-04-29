@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428075915) do
+ActiveRecord::Schema.define(version: 20160429023238) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20160428075915) do
     t.datetime "updated_at",                                  null: false
     t.integer  "comments_count", limit: 4,     default: 0
     t.string   "tag",            limit: 20,    default: "其他"
+    t.string   "address",        limit: 100
   end
 
   add_index "community_services", ["community_id"], name: "index_community_services_on_community_id", using: :btree
@@ -122,20 +123,21 @@ ActiveRecord::Schema.define(version: 20160428075915) do
     t.integer  "community_id",   limit: 8
     t.string   "title",          limit: 50
     t.text     "content",        limit: 65535
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
     t.integer  "comments_count", limit: 4
+    t.string   "tag",            limit: 20,    default: "其他"
   end
 
   create_table "user_addresses", force: :cascade do |t|
-    t.integer  "user_id",     limit: 4
-    t.string   "name",        limit: 45,  null: false
-    t.string   "mobile",      limit: 45
-    t.string   "address",     limit: 500, null: false
-    t.string   "living_area", limit: 255
-    t.integer  "default",     limit: 1
+    t.integer  "user_id",    limit: 4
+    t.string   "name",       limit: 45,  null: false
+    t.string   "mobile",     limit: 45
+    t.string   "address",    limit: 500, null: false
+    t.integer  "default",    limit: 1
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "area",       limit: 60
   end
 
   add_index "user_addresses", ["user_id"], name: "index_user_addresses_on_user_id", using: :btree

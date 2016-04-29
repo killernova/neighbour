@@ -15,6 +15,9 @@ RailsOnForum::Application.routes.draw do
   resources :logistics
   resources :photos, only: [:create, :destroy, :index, :new]
 
+  get 'contact_us', to: 'users#contact_us', as: :contact_us
+  get 'about_team', to: 'users#about_team', as: :about_team
+
   get 'tags/create'
 
 

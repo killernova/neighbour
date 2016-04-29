@@ -1,16 +1,19 @@
-
 <% community_services.each_with_index do |service, index| %>
+
+<%= link_to community_service_path(service) do %>
 <div class="row">
-  <div class="columns small-10 small-offset-1">
-    <%= link_to community_service_path(service) do %>
+  <div class="columns small-3">
+    <%= image_tag service.list_pic %>
+  </div>
+  <div class="columns small-9">
     <h3 class="title"><%= service.title %></h3>
     <div class="subtitle">
       <%= render partial: 'sub_title', locals: { community_service: service } %>
     </div>
-    <% end %>
   </div>
+  <% end %>
 </div>
 <% if index < community_services.length - 1 %>
-<hr />
+<hr/>
 <% end %>
 <% end %>

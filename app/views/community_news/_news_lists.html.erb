@@ -1,16 +1,20 @@
-
 <% community_news.each_with_index do |news, index| %>
+<%= link_to community_news_path(news) do %>
 <div class="row">
-  <div class="columns small-10 small-offset-1">
-    <%= link_to community_news_path(news) do %>
+  <div class="columns small-3">
+    <%= image_tag news.list_pic %>
+  </div>
+  <div class="columns small-9">
+
     <h3 class="title"><%= news.title %></h3>
     <div class="subtitle">
       <%= render partial: 'sub_title', locals: { community_news: news } %>
     </div>
-    <% end %>
+
   </div>
 </div>
+<% end %>
 <% if index < community_news.length - 1 %>
-<hr />
+<hr/>
 <% end %>
 <% end %>

@@ -8,6 +8,9 @@ class CommunityServicesController < ApplicationController
   def create
     @community_service = CommunityService.new(community_service_params)
     if current_user
+      if @community_service.address.blank?
+        @community_service.address = ChinaCity.get(params[:province]) + ChinaCity.get(params[:city]) + ChinaCity.get(params[:area]) + params[:detail_address]
+      end
       if @community_service.save
         photo_ids = params[:photo_ids].split(',')
         Photo.where(id: photo_ids).update_all(community_service_id: @community_service.id)
@@ -23,6 +26,8 @@ class CommunityServicesController < ApplicationController
     @photos = @community_service.photos
     @comments = @community_service.comments.includes(:user)
     @comment = @community_service.comments.new
+    @address = @community_service.address
+    @onload = 'geocoder()'
   end
 
   def index
@@ -45,6 +50,6 @@ class CommunityServicesController < ApplicationController
   private
 
   def community_service_params
-    params.require(:community_service).permit(:user_id, :title, :content, :community_id, :tag)
+    params.require(:community_service).permit(:user_id, :title, :content, :community_id, :tag, :address)
   end
 end

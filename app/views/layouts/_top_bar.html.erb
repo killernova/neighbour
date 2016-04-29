@@ -18,41 +18,32 @@
 
 <aside class="left-off-canvas-menu">
   <ul class="off-canvas-list">
-    <li>      
-      <%if session[:locale] == 'en'%>  
-      <%#=link_to '<i class="fa fa-language"></i>'.html_safe+' 中文',"#{request.url.sub('?locale=en','')}?locale=zh"%>
-      <%=link_to '<i class="fa fa-language"></i>'.html_safe+' 中文', 'javascript:void(0);', onclick: 'change_locale(this)', 'data-locale' => 'zh', class: 'change-locale' %>
-      <%else%>
-      <%#=link_to '<i class="fa fa-language"></i>'.html_safe+' English',"#{request.url.sub('?locale=zh','')}?locale=en"%>
-      <%=link_to '<i class="fa fa-language"></i>'.html_safe+' English', 'javascript:void(0);', onclick: 'change_locale(this)', 'data-locale' => 'en', class: 'change-loc' %>
-      <%end%> 
-    </li>
     <li>
       <%=link_to ' <i class="fa fa-search"></i>'.html_safe+' '+t(:search),search_path, style: 'display:none'%></li>
       <%if signed_in?%>
       <% if current_user.role.in?(['1', '2']) %>
       <li><%=link_to new_community_news_path do %>
-        <div class="<%= has_detail_info %>" data-url="<%= new_community_news_path %>"><i class="fa fa-cart-plus"></i>新增社区动态</div>
+        <div class="<%= has_detail_info %>" data-url="<%= new_community_news_path %>"><i class="fa fa-cart-plus"></i>发布社区动态</div>
         <% end %>
       </li>
       <% end %>
 
       <li>
         <%=link_to new_community_service_path do %>
-        <div class="<%= has_detail_info %>" data-url="<%= new_community_service_path %>"><i class="fa fa-calendar"></i>新增社区服务</div>
+        <div class="<%= has_detail_info %>" data-url="<%= new_community_service_path %>"><i class="fa fa-calendar"></i>发布社区服务</div>
         <% end %>
       </li>
 
       <li>
         <%=link_to new_topic_path do %>
-        <div class="<%= has_detail_info %>" data-url="<%= new_topic_path %>"><i class="fa fa-bullhorn"></i>发表话题</div>
+        <div class="<%= has_detail_info %>" data-url="<%= new_topic_path %>"><i class="fa fa-bullhorn"></i>发布社区话题</div>
         <% end %>
       </li>
-      
+
       <%else%>
       <li><%=link_to '<i class="fa  fa-sign-in"></i>'.html_safe+' '+t(:login), login_path%></li>
       <%end%>
-      
+
       <li class="divider hide-for-small"></li>
 
     </ul>

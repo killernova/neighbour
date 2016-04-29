@@ -4,13 +4,13 @@ class User < ActiveRecord::Base
   has_many :topics,   dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :participants, dependent: :destroy
-  
+
   has_many :user_interests, dependent: :destroy
   has_many :user_addresses, dependent: :destroy
   belongs_to :community
   has_many :community_news
   has_many :community_services, dependent: :destroy
- 
+
 
 
   #validates :username,   presence:   true,
@@ -34,6 +34,7 @@ class User < ActiveRecord::Base
   end
 
   def default_address
-    self.user_addresses.where(default: 1).first || self.user_addresses.first
-  end 
+    user_addr = self.user_addresses.find_by(default: 1)
+    {mobile: user_addr.present? ? user_addr.mobile : self.mobile, address: user_addr.present? ? user_addr.address : self.location}
+  end
 end

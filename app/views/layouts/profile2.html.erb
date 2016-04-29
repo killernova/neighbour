@@ -19,7 +19,7 @@
     <% if current_user && current_user == User.find_by(id: params[:id]) %>
     <div class="weui_cells_title"><%= t(:histroy) %></div>
     <div class="weui_cells weui_cells_access">
-      
+
 
       <%= link_to my_community_services_path,class: 'weui_cell' do %>
       <div class="weui_cell_bd weui_cell_primary">
@@ -35,7 +35,7 @@
       <div class="weui_cell_ft"></div>
       <% end %>
 
-      
+
     </div>
 <% end %>
 
@@ -43,27 +43,27 @@
     <div class="weui_cells weui_cells_access">
       <%= link_to user_addresses_path(@user), class: 'weui_cell' do %>
       <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-bookmark"></i><%= t(:maintain_addresses) %></div>
+        <div class="type"><i class="fa fa-bookmark"></i>我的地址</div>
       </div>
       <div class="weui_cell_ft"></div>
       <% end %>
       </div>
 
 
-    
+
     <div class="weui_cells_title"><%= t(:others) %></div>
     <div class="weui_cells weui_cells_access">
 
-      <%= link_to '#', class: 'weui_cell' do %>
+      <%= link_to contact_us_path, class: 'weui_cell' do %>
       <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-book"></i><%= t(:contact_us) %></div>
+        <div class="type"><i class="fa fa-book"></i>联系我们</div>
       </div>
       <div class="weui_cell_ft"></div>
       <% end %>
 
-      <%= link_to '#', class: 'weui_cell' do %>
+      <%= link_to about_team_path, class: 'weui_cell' do %>
       <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-book"></i><%= t(:membership) %></div>
+        <div class="type"><i class="fa fa-book"></i>关于团队</div>
       </div>
       <div class="weui_cell_ft"></div>
       <% end %>
@@ -75,7 +75,7 @@
       <div class="weui_cell_ft"></div>
       <% end %>
     </div>
-  
+
 
 
 
@@ -89,4 +89,3 @@
 
 
   <%= render template: "layouts/application" %>
-
