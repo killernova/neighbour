@@ -1,5 +1,8 @@
 class User < ActiveRecord::Base
   has_secure_password
+  enum show_all_news: [:my_news, :all_news]
+  enum show_all_services: [:my_services, :all_services]
+  enum show_all_topics: [:my_topics, :all_topics]
 
   has_many :topics,   dependent: :destroy
   has_many :comments, dependent: :destroy

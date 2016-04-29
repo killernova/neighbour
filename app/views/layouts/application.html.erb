@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-  <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=48fa2e3376dc45e6b62252aec36f637b&plugin=AMap.Geocoder"></script>
-  <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=48fa2e3376dc45e6b62252aec36f637b"></script>
+<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
   <title><%#= content_for?(:title) ? yield(:title) : t(:site_name) %>
     <%=t(:site_name) %>
@@ -46,153 +46,27 @@
         </footer>
       </div>
     </article>
-    <!-- close the off-canvas menu -->
-    <a class="exit-off-canvas"></a>
+  <!-- close the off-canvas menu -->
+  <a class="exit-off-canvas"></a>
 
   </div>
 </div>
 
 
-<%=render '/layouts/menu'%>
-
-<% if current_user %>
-<div class="add-info-div hidden">
-  <div class="background-layer"></div>
-  <div class="add-info">
-    <%= render '/layouts/add_info' %>
-  </div>
-</div>
-<% end %>
+  <%=render '/layouts/menu'%>
 
 
-<link rel="stylesheet" media="screen" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
-<style type='text/css'>
+
+  <link rel="stylesheet" media="screen" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+  <style type='text/css'>
   body {
     font-size: 0.9em;
   }
-</style>
+  </style>
 
 
-<script>
-  $(function(){ $(document).foundation(); });
-  $(document).ready(function(){
-    $(".show-comments").on("click", function(event) {
-      event.preventDefault();
-      if($('.comments').length > 0) {
-        $('.comments').remove();
-        return;
-      }
-      $(".comments").remove();
-      $(".participants").remove();
-      $('.show-more-participants').remove();
-
-      var url = $(this).data('url');
-      //htmlobj = $.ajax({url: url ,async:false});
-
-      var htmlobj = '';
-      $.ajax({
-        url: url,
-        type: 'get',
-        async: false,
-        success: function(e) {
-          htmlobj = e;
-        }
-      });
-
-      var obj = $(this).parent().parent();
-      if (url.indexOf("forum")>0){
-       obj = obj.parent();
-     }
-     obj.append('<div class="comments" style="margin:0px;padding:0px;">'+htmlobj+'</div>');
-
-        // obj.append('<a href="#" class="close button tiny secondary right"><i class="fa fa-close"></i><%=t(:close)%></a>');
-        // $(".comments").stop().animate({
-        //     scrollTop: $(".comments")[0].scrollHeight
-        // }, 200);
-      });
-  });
-  $(".show-participants").on("click",  function(event) {
-    event.preventDefault();
-    if($('.participants').length > 0) {
-      $('.participants').remove();
-      $('.show-more-participants').remove();
-      return;
-    }
-
-    $(".comments").remove();
-    $(".participants").remove();
-    $('.show-more-participants').remove();
-
-    var url = $(this).data('url');
-    var id = $(this).data('id');
-    var more = $(this).data('more');
-    var controllerName = $(this).data('controllername');
-    var linkUrl = "/" + controllerName + '/' + id;
-     // htmlobj = $.ajax({url: url ,async:false});
-     var htmlobj = '';
-     $.ajax({
-      url: url,
-      type: 'get',
-      async: false,
-      success: function(e) {
-        htmlobj = e;
-      }
-    });
-     $(this).parent().parent().append('<div class="participants" style="margin:0px;padding:0px;">'+htmlobj.replace('fa-trash', '') + '</div>');
-      //$(this).parent().parent().append('<div class="more"><a href=' + linkUrl + '></a></div>');
-    });
-
-    // 防止数量输入非正整数
-    $('body').on('change', '.participant-number', function(){
-      var that = $(this);
-      var num = parseFloat(that.val());
-      var minimal = that.data('minimal') ;
-
-
-      console.log(num);
-      console.log(minimal);
-      if(num < minimal || isNaN(num)) {
-        alert('<%=t(:must_large_than_minimal)%>');
-        that.val('');
-      }
-
-      else{
-        that.val(num.toFixed(2));
-        get_freightage();
-      }
-    });
-
-    //点击more加载更多评论
-    var times = 2;
-    $('.more-comments').on('click', function(){
-      var url = $(this).data('url');
-      var start = (times - 1) * 10;
-      var over = times * 10;
-      var parent = $(this).data('parent');
-      var id = $(this).data('id');
-      var count = $(this).data('count');
-      $.ajax({
-        url: url,
-        type: 'post',
-        data: {
-          start: start,
-          over: over,
-          parent: parent,
-          id: id
-        },
-        success: function(e){
-          $(".comments-list").append(e);
-        }
-      });
-      times += 1;
-      console.log(count);
-      console.log(over);
-      if(over > count) {
-        $(this).text('<%=t(:nomore)%>');
-        $(this).unbind('click');
-      }
-    });
-
+  <script>
+    $(function(){ $(document).foundation(); });
   </script>
 </body>
 </html>

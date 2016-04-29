@@ -33,6 +33,19 @@ class CommunityServicesController < ApplicationController
   def index
     @with = ''
     @order_by = ''
+    if current_user && current_user.my_services?
+      if params[:order_by].present? && params[:with].present?
+        @order_by = params[:order_by]
+        @with = params[:with]
+        if @order_by == 'name'
+          @community_services = CommunityService.joins(:user, :community).where('community_services.community_id = ?', current_user.community.id).order("communities.name #{@with}")
+        else
+          @community_services = CommunityService.joins(:user).where('community_services.community_id = ?', current_user.community.id).order("#{params[:order_by]} #{params[:with]}")
+        end
+      else
+        @community_services = CommunityService.joins(:user).where('community_services.community_id = ?', current_user.community.id).desc
+      end
+    else
     if params[:order_by].present? && params[:with].present?
       @order_by = params[:order_by]
       @with = params[:with]
@@ -44,6 +57,7 @@ class CommunityServicesController < ApplicationController
     else
       @community_services = CommunityService.desc
     end
+  end
   end
 
 

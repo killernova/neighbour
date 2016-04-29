@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429023238) do
+ActiveRecord::Schema.define(version: 20160429093419) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -160,6 +160,9 @@ ActiveRecord::Schema.define(version: 20160429023238) do
     t.string   "weixin_openid",      limit: 255
     t.string   "avatar",             limit: 500
     t.string   "mobile",             limit: 15
+    t.integer  "show_all_news",      limit: 2
+    t.integer  "show_all_services",  limit: 2
+    t.integer  "show_all_topics",    limit: 2
   end
 
   create_table "wechats", force: :cascade do |t|

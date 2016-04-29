@@ -26,6 +26,19 @@ class TopicsController < ApplicationController
   def index
     @with = ''
     @order_by = ''
+    if current_user && current_user.my_topics?
+      if params[:order_by].present? && params[:with].present?
+        @order_by = params[:order_by]
+        @with = params[:with]
+        if @order_by == 'name'
+          @topics = Topic.joins(:user, community).where('topics.community_id = ?', current_user.community.id).order("communities.name #{@with}")
+        else
+          @topics = Topic.joins(:user).where('topics.community_id = ?', current_user.community.id).order("#{params[:order_by]} #{params[:with]}")
+        end
+      else
+        @topics = Topic.joins(:user).where('topics.community_id = ?', current_user.community.id).desc
+      end
+    else
     if params[:order_by].present? && params[:with].present?
       @order_by = params[:order_by]
       @with = params[:with]
@@ -37,6 +50,7 @@ class TopicsController < ApplicationController
     else
       @topics = Topic.desc
     end
+  end
   end
 
   private

@@ -55,13 +55,13 @@ zh:
 
   time:
     formats:
-      default: "%Y年%b%d日 %H:%M"  
+      default: "%Y年%b%d日 %H:%M"
       short: "%b%d日 %H:%M"
       long: "%Y年%b%d日 %A %H:%M:%S"
       normal: "%Y年%b%d日"
     am: "上午"
     pm: "下午"
-  
+
   datetime:
     distance_in_words:
       half_a_minute: "半分钟"
@@ -318,7 +318,7 @@ zh:
   price: 价格
   search: 搜索
   comment: 评论
-  site_name: GroupMall
+  site_name: 邻居团
   before: 前。
   more: 更多
   new_comment: 添加评论
@@ -505,4 +505,3 @@ zh:
   password_confirmation: 确认密码
   about_groupmall: 关于GroupMall
   my_community_services: 我的服务
-

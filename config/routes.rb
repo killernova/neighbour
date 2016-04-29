@@ -27,6 +27,7 @@ RailsOnForum::Application.routes.draw do
 
   post 'topics/more_comments', to: 'topics#more_comments'
   post 'users/add_info', to: 'users#add_info', as: :add_info
+  post '/users/set_check_range', to: 'users#set_check_range', as: :set_check_range
 
 
   get 'users/my_community_services', to: 'users#my_community_services', as: :my_community_services

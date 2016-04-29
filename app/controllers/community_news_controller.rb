@@ -25,9 +25,15 @@ class CommunityNewsController < ApplicationController
   end
 
   def index
+    if current_user && current_user.my_news?
+      @billboards = CommunityNews.joins(:user).where('community_news.community_id = ?', current_user.community.id).billboards
+      @notices = CommunityNews.joins(:user).where('community_news.community_id = ?', current_user.community.id).notices
+      @activities = CommunityNews.joins(:user).where('community_news.community_id = ?', current_user.community.id).activities
+    else
     @billboards = CommunityNews.billboards
     @notices = CommunityNews.notices
     @activities = CommunityNews.activities
+  end
   end
 
   private

@@ -1,91 +1,123 @@
-  <% content_for(:content) do %>
-  <div class="main-content">
+<% content_for(:content) do %>
+<div class="main-content">
 
-    <% if @user %>
-    <div class="weui_cells weui_cells_access">
-      <a class="weui_cell" href="<%= user_info_path(params[:id]) %>">
-        <div class="weui_cell_hd">
-          <%= image_tag @user.avatar if @user.avatar.present? %>
-        </div>
-        <div class="weui_cell_bd weui_cell_primary">
-          <div class="nickname"><%= @user.nickname %></div>
-        </div>
-        <div class="weui_cell_ft">
+  <% if @user %>
+  <div class="weui_cells weui_cells_access">
+    <a class="weui_cell" href="<%= user_info_path(params[:id]) %>">
+      <div class="weui_cell_hd">
+        <%= image_tag @user.avatar if @user.avatar.present? %>
+      </div>
+      <div class="weui_cell_bd weui_cell_primary">
+        <div class="nickname"><%= @user.nickname %></div>
+      </div>
+      <div class="weui_cell_ft"></div>
+    </a>
+  </div>
 
-        </div>
-      </a>
+  <% if current_user && current_user == User.find_by(id: params[:id]) %>
+  <div class="weui_cells_title"><%= t(:histroy) %></div>
+  <div class="weui_cells weui_cells_access">
+
+    <%= link_to my_community_services_path,class: 'weui_cell' do %>
+    <div class="weui_cell_bd weui_cell_primary">
+      <div class="type"><%= t(:my_community_services) %></div>
     </div>
-
-    <% if current_user && current_user == User.find_by(id: params[:id]) %>
-    <div class="weui_cells_title"><%= t(:histroy) %></div>
-    <div class="weui_cells weui_cells_access">
-
-
-      <%= link_to my_community_services_path,class: 'weui_cell' do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><%= t(:my_community_services) %></div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
-
-      <%= link_to my_topics_path,class: 'weui_cell' do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><%= t(:my_topics) %></div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
-
-
-    </div>
-<% end %>
-
-    <div class="weui_cells_title"><%= t(:settings) %></div>
-    <div class="weui_cells weui_cells_access">
-      <%= link_to user_addresses_path(@user), class: 'weui_cell' do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-bookmark"></i>我的地址</div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
-      </div>
-
-
-
-    <div class="weui_cells_title"><%= t(:others) %></div>
-    <div class="weui_cells weui_cells_access">
-
-      <%= link_to contact_us_path, class: 'weui_cell' do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-book"></i>联系我们</div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
-
-      <%= link_to about_team_path, class: 'weui_cell' do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-book"></i>关于团队</div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
-
-      <%= link_to "javascript:void", class: 'weui_cell share-alert', 'data-alert' => @share_alert do %>
-      <div class="weui_cell_bd weui_cell_primary">
-        <div class="type"><i class="fa fa-share-alt-square"></i><%= t(:share) %></div>
-      </div>
-      <div class="weui_cell_ft"></div>
-      <% end %>
-    </div>
-
-
-
-
+    <div class="weui_cell_ft"></div>
     <% end %>
-    <div class="large-12 columns profile-content hidden" id="datas">
-      <%= yield :profile_content %>
+
+    <%= link_to my_topics_path,class: 'weui_cell' do %>
+    <div class="weui_cell_bd weui_cell_primary">
+      <div class="type"><%= t(:my_topics) %></div>
     </div>
+    <div class="weui_cell_ft"></div>
+    <% end %>
 
   </div>
   <% end %>
 
+  <div class="weui_cells_title"><%= t(:settings) %></div>
+  <div class="weui_cells">
+    <div class="weui_cells_access">
+      <%= link_to user_addresses_path(@user), class: 'weui_cell' do %>
+      <div class="weui_cell_bd weui_cell_primary">
+        <div class="type">
+          <i class="fa fa-bookmark"></i>我的地址</div>
+      </div>
+      <div class="weui_cell_ft"></div>
+      <% end %>
+    </div>
 
-  <%= render template: "layouts/application" %>
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary">
+        <div class="sex">查看所有动态</div>
+      </div>
+      <div class="weui_cell_ft">
+        <fieldset class="switch radius tiny" tabindex="0">
+          <input id="news-switch" type="checkbox" data-type="news" data-checked="<%= @all_news %>">
+          <label for="news-switch"></label>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary">
+        <div class="sex">查看所有服务</div>
+      </div>
+      <div class="weui_cell_ft">
+        <fieldset class="switch radius tiny" tabindex="0">
+          <input id="service-switch" type="checkbox" data-type="services" data-checked="<%= @all_services %>">
+          <label for="service-switch"></label>
+        </fieldset>
+      </div>
+    </div>
+
+    <div class="weui_cell">
+      <div class="weui_cell_bd weui_cell_primary">
+        <div class="sex">查看所有话题</div>
+      </div>
+      <div class="weui_cell_ft">
+        <fieldset class="switch radius tiny" tabindex="0">
+          <input id="topic-switch" type="checkbox" data-type="topics" data-checked="<%= @all_topics %>">
+          <label for="topic-switch"></label>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+
+  <div class="weui_cells_title"><%= t(:others) %></div>
+  <div class="weui_cells weui_cells_access">
+
+    <%= link_to contact_us_path, class: 'weui_cell' do %>
+    <div class="weui_cell_bd weui_cell_primary">
+      <div class="type">
+        <i class="fa fa-book"></i>联系我们</div>
+    </div>
+    <div class="weui_cell_ft"></div>
+    <% end %>
+
+    <%= link_to about_team_path, class: 'weui_cell' do %>
+    <div class="weui_cell_bd weui_cell_primary">
+      <div class="type">
+        <i class="fa fa-book"></i>关于团队</div>
+    </div>
+    <div class="weui_cell_ft"></div>
+    <% end %>
+
+    <%= link_to "javascript:void(0);", class: 'weui_cell share-alert', 'data-alert' => @share_alert do %>
+    <div class="weui_cell_bd weui_cell_primary">
+      <div class="type">
+        <i class="fa fa-share-alt-square"></i><%= t(:share) %></div>
+    </div>
+    <div class="weui_cell_ft"></div>
+    <% end %>
+  </div>
+
+  <% end %>
+  <div class="large-12 columns profile-content hidden" id="datas">
+    <%= yield :profile_content %>
+  </div>
+
+</div>
+<% end %>
+
+<%= render template: "layouts/application" %>

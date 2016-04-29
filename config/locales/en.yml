@@ -9,7 +9,7 @@ en:
     - Fri
     - Sat
     abbr_month_names:
-    - 
+    -
     - Jan
     - Feb
     - Mar
@@ -35,7 +35,7 @@ en:
       long: "%B %d, %Y"
       short: "%b %d"
     month_names:
-    - 
+    -
     - January
     - February
     - March
@@ -139,7 +139,7 @@ en:
   helpers:
     select:
       prompt: Please select
-    submit: 
+    submit:
       create: Submit
       submit: Submit
       update: Submit
@@ -211,12 +211,12 @@ en:
   price: Price
   participants: Participants
   comments: Comment
-  site_name: GroupMall
+  site_name: Linjutuan
   home: Home
   search: Search
   event: Meetups
   topic: Topics
-  user_center: User Center  
+  user_center: User Center
   before: before.
   more: More
   new_comment: New Comment
@@ -395,5 +395,3 @@ en:
   user_avatar: Avatar
   about_groupmall: ABOUT GROUPMALL
   my_community_services: My Community Services
-
-

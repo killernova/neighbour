@@ -55,20 +55,3 @@ $(document).ready ->
     # $('.add-info').css('left', set_left + 'px')
     # console.log set_left
     # console.log $('.add-info').css('left')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

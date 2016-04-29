@@ -72,11 +72,14 @@ class UsersController < ApplicationController
   end
 
   def show
+    @all_news = current_user.all_news?
+    @all_services = current_user.all_services?
+    @all_topics = current_user.all_topics?
     #微信share接口配置
     if current_user.present?
-      @title = session[:locale] == 'zh' ? "推荐您加入 Groupmall!" : "recommend you to join Groupmall!"
-      @img_url = 'http://ljt.trade-v.com/groupmall_logo.jpg'
-      @desc = session[:locale] == 'zh' ? 'Groupmall 是拼人品的团购、聚会和论坛。' : 'Groupmall is trusted based group buying, meetups and forums.'
+      @title =  "#{current_user.nickname}推荐您加入邻居团!"
+      @img_url = 'http://ljt.trade-v.com/ljt_logo.jpg'
+      @desc = '欢迎加入邻居团！'
       @timestamp = Time.now.to_i
       @appId = WX_APP_ID
       @noncestr = random_str 16
@@ -86,16 +89,13 @@ class UsersController < ApplicationController
         :noncestr => @noncestr,
         :jsapi_ticket => @jsapi_ticket,
         :timestamp => @timestamp,
-        :url => request.url.gsub("localhost:5000", "ljt.trade-v.com")
+        :url => request.url.gsub("localhost:5500", "ljt.trade-v.com")
       }
       @sign = create_sign_for_js post_params
       @a = [request.url, post_params, request.url.gsub("trade", "ljt.trade-v.com")]
     end
 
     type = params[:type] || 'topic'
-
-
-    @share_alert = session[:locale] == 'zh' ? '请点击右上角的分享按钮进行分享' : 'Please click the SHARE BUTTON on the top right conner'
     render layout: "profile2", locals: {page: type}
   end
 
@@ -171,6 +171,14 @@ def destroy
   logout
   @user.destroy
   redirect_to root_url
+end
+
+def set_check_range
+  if current_user.update("show_all_#{params[:type]}".to_sym => params[:val].to_i)
+    render json: {msg: 'ok'}
+  else
+    render json: {msg: 'failed'}
+  end
 end
 
 private
