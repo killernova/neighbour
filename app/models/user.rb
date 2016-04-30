@@ -13,6 +13,23 @@ class User < ActiveRecord::Base
   belongs_to :community
   has_many :community_news
   has_many :community_services, dependent: :destroy
+  after_create :set_default_range
+
+  def set_default_range
+    update(show_all_news: 1, show_all_topics: 1, show_all_services: 1)
+  end
+
+  def member?
+    self.role == '0'
+  end
+
+  def super_admin?
+    self.role == '1'
+  end
+
+  def normal_admin?
+    self.role == '2'
+  end
 
 
 

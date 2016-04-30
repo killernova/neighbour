@@ -1,72 +1,84 @@
 <!DOCTYPE html>
 <html lang="zh">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" />
-<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=48fa2e3376dc45e6b62252aec36f637b"></script>
-<script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=48fa2e3376dc45e6b62252aec36f637b&plugin=AMap.Geocoder"></script>
+    <script type="text/javascript" src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
 
-  <title><%#= content_for?(:title) ? yield(:title) : t(:site_name) %>
-    <%=t(:site_name) %>
-  </title>
+    <title><%#= content_for?(:title) ? yield(:title) : t(:site_name) %>
+      <%=t(:site_name) %>
+    </title>
 
-  <%= stylesheet_link_tag  "application", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
+    <%= stylesheet_link_tag  "application", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", 'data-turbolinks-track' => true %>
 
+    <%= csrf_meta_tags %>
+  </head>
 
-  <%= csrf_meta_tags %>
-</head>
+  <body onload="<%=@onload%>">
 
-<body onload="<%=@onload %>" >
+    <div class="off-canvas-wrap" data-offcanvas>
+      <div class="inner-wrap">
+        <!-- Off Canvas Menu -->
+        <%=render '/layouts/top_bar'%>
 
-
-<div class="off-canvas-wrap" data-offcanvas>
-  <div class="inner-wrap">
-    <!-- Off Canvas Menu -->
-    <%=render '/layouts/top_bar'%>
-
-    <!-- main content goes here -->
-    <article>
-      <%= yield %>
-      <%= yield :content %>
-      <hr>
-      <div class="large-12 columns">
-        <footer id="footer">
-          <div class="row">
-            <div class="columns small-12" style="line-height: 100%">
-              <small> &copy; 2014 - <span id='copyright_year'></span>, <%=t(:site_name)%><br>
-               技术支持: <a target="_blank" href="http://www.trade-v.com/" title="上海普慧信息科技有限公司">上海普慧信息科技有限公司</a></small>
-               <script>
-                var myDate = new Date();
-                var currentYear = myDate.getFullYear();
-                document.getElementById('copyright_year').innerText=currentYear;
-              </script>
-            </div>
+        <!-- add details form -->
+        <% if current_user %>
+        <div class="add-info-div hidden">
+          <div class="background-layer"></div>
+          <div class="add-info">
+            <%= render '/layouts/add_info' %>
           </div>
-        </footer>
+        </div>
+        <% end %>
+
+        <!-- main content goes here -->
+        <article>
+          <%= yield %>
+          <%= yield :content %>
+          <hr>
+          <div class="large-12 columns">
+            <footer id="footer">
+              <div class="row">
+                <div class="columns small-12" style="line-height: 100%">
+                  <small>
+                    &copy; 2014 -
+                    <span id='copyright_year'></span>,
+                    <%=t(:site_name)%><br>
+                    技术支持:
+                    <a target="_blank" href="http://www.trade-v.com/" title="上海普慧信息科技有限公司">上海普慧信息科技有限公司</a>
+                  </small>
+                  <script>
+                    var myDate = new Date();
+                    var currentYear = myDate.getFullYear();
+                    document.getElementById('copyright_year').innerText = currentYear;
+                  </script>
+                </div>
+              </div>
+            </footer>
+          </div>
+        </article>
+        <!-- close the off-canvas menu -->
+        <a class="exit-off-canvas"></a>
+
       </div>
-    </article>
-  <!-- close the off-canvas menu -->
-  <a class="exit-off-canvas"></a>
+    </div>
 
-  </div>
-</div>
+    <%=render '/layouts/menu'%>
 
+    <link rel="stylesheet" media="screen" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <style type='text/css'>
+      body {
+        font-size: 0.9em;
+      }
 
-  <%=render '/layouts/menu'%>
+    </style>
 
-
-
-  <link rel="stylesheet" media="screen" href="//cdn.bootcss.com/font-awesome/4.5.0/css/font-awesome.min.css">
-  <style type='text/css'>
-  body {
-    font-size: 0.9em;
-  }
-  </style>
-
-
-  <script>
-    $(function(){ $(document).foundation(); });
-  </script>
-</body>
+    <script>
+      $(function () {
+        $(document).foundation();
+      });
+    </script>
+  </body>
 </html>
