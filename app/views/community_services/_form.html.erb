@@ -1,6 +1,6 @@
 <div class="row">
   <div class="columns small-12">
-    <%= form_for @community_service do |f| %>
+    <%= form_for @community_service, method: @method || 'post' do |f| %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :community_id, value: current_user.community_id %>
     <input type="hidden" , name='photo_ids' value="" class="pic-ids">

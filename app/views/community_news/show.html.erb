@@ -24,4 +24,15 @@
       <%= simple_format @community_news.content %>
     </div>
   </div>
+
+  <% if edit_and_delete_power @community_news %>
+  <div class="row">
+    <div class="columns small-10 small-centered">
+      <ul class="button-group even-2">
+        <li><%= link_to '编辑', edit_community_news_path(@community_news), class: 'button tiny info' %></li>
+        <li><%= link_to '删除', community_news_path(@community_news), method: :delete, data: {confirm: '确认删除?'}, class: 'button tiny alert' %></li>
+      </ul>
+    </div>
+  </div>
+  <% end %>
 </div>

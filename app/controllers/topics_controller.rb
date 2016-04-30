@@ -1,4 +1,5 @@
 class TopicsController < ApplicationController
+  before_action :set_topic, only: [:edit, :update, :show, :destroy]
   def new
     @topic = Topic.new
   end
@@ -53,7 +54,28 @@ class TopicsController < ApplicationController
   end
   end
 
+  def edit
+    @method = 'patch'
+  end
+
+  def update
+    if @topic.update(topic_params)
+      redirect_to topic_path(@topic)
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @topic.destroy
+    redirect_to topics_path
+  end
+
   private
+
+  def set_topic
+    @topic = Topic.find_by(id: params[:id])
+  end
 
   def topic_params
     params.require(:topic).permit(:title, :content, :user_id, :community_id)

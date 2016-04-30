@@ -24,6 +24,16 @@
       <%= simple_format @topic.content %>
     </div>
   </div>
+  <% if edit_and_delete_power @topic %>
+  <div class="row">
+    <div class="columns small-10 small-centered">
+  <ul class="button-group even-2">
+  <li><%= link_to '编辑', edit_topic_path(@topic), class: 'button tiny info' %></li>
+  <li><%= link_to '删除', topic_path(@topic), method: :delete, data: {confirm: '确认删除?'}, class: 'button tiny alert' %></li>
+</ul>
+</div>
+</div>
+<% end %>
 </div>
 
 <%= render '/comments/comments_list_and_form' %>

@@ -23,7 +23,11 @@ module SessionsHelper
     redirect_to root_path unless is_admin?
   end
 
-  def autheorize_special_admin!
-    redirect_to root_path unless is_admin? || (is_community_admin? && community_news_by(current_user))
+  def autheorize_special_admin! community_news
+    redirect_to root_path unless is_admin? || (is_community_admin? && community_news.user == current_user)
+  end
+
+  def edit_and_delete_power obj
+    current_user.super_admin? || obj.user == current_user
   end
 end

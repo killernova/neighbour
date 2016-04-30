@@ -1,6 +1,5 @@
 class CommunityServicesController < ApplicationController
-
-
+  before_action :select_service, only: [:show, :edit, :destroy, :update]
   def new
     @community_service = CommunityService.new
   end
@@ -46,22 +45,49 @@ class CommunityServicesController < ApplicationController
         @community_services = CommunityService.joins(:user).where('community_services.community_id = ?', current_user.community.id).desc
       end
     else
-    if params[:order_by].present? && params[:with].present?
-      @order_by = params[:order_by]
-      @with = params[:with]
-      if @order_by == 'name'
-        @community_services = CommunityService.joins(:community).order("communities.name #{@with}")
+      if params[:order_by].present? && params[:with].present?
+        @order_by = params[:order_by]
+        @with = params[:with]
+        if @order_by == 'name'
+          @community_services = CommunityService.joins(:community).order("communities.name #{@with}")
+        else
+          @community_services = CommunityService.order("#{params[:order_by]} #{params[:with]}")
+        end
       else
-        @community_services = CommunityService.order("#{params[:order_by]} #{params[:with]}")
+        @community_services = CommunityService.desc
       end
-    else
-      @community_services = CommunityService.desc
     end
   end
+
+  def edit
+    @method = 'patch'
   end
 
+  def update
+    if @community_service.update(community_service_params)
+      if @community_service.address.blank?
+        @community_service.address = ChinaCity.get(params[:province]) + ChinaCity.get(params[:city]) + ChinaCity.get(params[:area]) + params[:detail_address]
+      end
+      if @community_service.save
+        redirect_to community_service_path(@community_service)
+      else
+        render 'edit'
+    end
+    else
+      render 'edit'
+    end
+  end
+
+  def destroy
+    @community_service.destroy
+    redirect_to community_services_path
+  end
 
   private
+
+  def select_service
+    @community_service = CommunityService.find_by(id: params[:id])
+  end
 
   def community_service_params
     params.require(:community_service).permit(:user_id, :title, :content, :community_id, :tag, :address)
