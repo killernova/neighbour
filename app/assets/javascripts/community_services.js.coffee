@@ -19,3 +19,5 @@ $(document).ready ->
 
   # 不显示默认tag
   $('.service-tag').val('')
+
+  

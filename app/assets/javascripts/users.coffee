@@ -22,5 +22,5 @@ $(document).ready ->
     console.log $(this).data('checked')
     if $(this).data('checked') == true
       $(this).prop('checked', true)
-    else
+    else if $(this).data('checked') == false
       $(this).prop('checked', false)
