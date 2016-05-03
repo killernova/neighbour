@@ -9,6 +9,11 @@ class CommunityServicesController < ApplicationController
     if current_user
       if @community_service.address.blank?
         @community_service.address = ChinaCity.get(params[:province]) + ChinaCity.get(params[:city]) + ChinaCity.get(params[:area]) + params[:detail_address]
+        community_name = params[:new_community]
+        if Community.find_by(name: community_name).nil?
+          new_community = Community.create name: community_name, area: (ChinaCity.get(params[:province]) + ChinaCity.get(params[:city]) + ChinaCity.get(params[:area])), address: params[:detail_address]
+          @community_service.community_id = new_community.id
+        end
       end
       if @community_service.save
         photo_ids = params[:photo_ids].split(',')
@@ -72,7 +77,7 @@ class CommunityServicesController < ApplicationController
         redirect_to community_service_path(@community_service)
       else
         render 'edit'
-    end
+      end
     else
       render 'edit'
     end

@@ -2,10 +2,10 @@
 
 <%= link_to community_service_path(service) do %>
 <div class="row">
-  <div class="columns small-3">
-    <%= image_tag service.list_pic %>
+  <div class="columns small-2">
+    <%= image_tag (service.list_pic || '/ljt_logo.jpg') %>
   </div>
-  <div class="columns small-9">
+  <div class="columns small-10">
     <h3 class="title"><%= service.title %></h3>
     <div class="subtitle">
       <%= render partial: 'sub_title', locals: { community_service: service } %>

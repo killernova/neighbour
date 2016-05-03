@@ -33,7 +33,7 @@ module ApplicationHelper
     end
     info << info_for(comment.user) unless params[:controller] == 'users'
     info << time_for(comment)
-    info << "<div class='owner-buttons-for-c'>" << owner_buttons_for_c(comment) << '</div>' if current_user == comment.user
+    info << "<div class='owner-buttons-for-c'>" << owner_buttons_for_c(comment) << '</div>' if current_user == comment.user || current_user.super_admin?
     info << '</small>'
     info << vote_for(comment)
     info.join.html_safe

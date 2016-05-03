@@ -12,6 +12,12 @@
     </div>
   </div>
 
+  <div class="row detail-address">
+    <div class="columns small-10 small-offset-1">
+      <%= @community_service.community.address %>
+    </div>
+  </div>
+
   <div class="row service-content">
     <% if @photos %>
     <% @photos.each do |pic| %>
