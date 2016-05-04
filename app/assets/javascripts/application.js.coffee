@@ -55,3 +55,15 @@ $(document).ready ->
     # $('.add-info').css('left', set_left + 'px')
     # console.log set_left
     # console.log $('.add-info').css('left')
+
+  #-------------------最新版本的编辑图片------------------//
+  $('.dz-image .trash').on 'click', ->
+    ids = []
+    deleteIds = $('.delete-ids').val() + ',' + $(this).parent().attr('id')
+    $('.delete-ids').val(deleteIds)
+    that = $(this)
+    $(this).parent().remove()
+    if($('.dz-image').length > 0)
+      $('.dz-image').each ->
+        ids.push($(this).attr('id'))
+    $('.pic-ids').val(ids.join(','))

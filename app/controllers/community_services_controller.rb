@@ -66,6 +66,7 @@ class CommunityServicesController < ApplicationController
 
   def edit
     @method = 'patch'
+    @photos = @community_service.photos
   end
 
   def update
@@ -74,6 +75,25 @@ class CommunityServicesController < ApplicationController
         @community_service.address = ChinaCity.get(params[:province]) + ChinaCity.get(params[:city]) + ChinaCity.get(params[:area]) + params[:detail_address]
       end
       if @community_service.save
+        if params[:images]
+          params[:images].each do |image|
+            @community_service.photos.update(image: image)
+          end
+        end
+        # 删除与团购关联的图片
+        origin_ids = @community_service.photos.pluck(:id)
+        if params[:photo_ids].present? || params[:delete_ids].present?
+          ids = params[:photo_ids].split(',').select(&:present?)
+          Photo.where(id: ids).update_all(community_service_id: params[:id])
+
+          Rails.logger.info origin_ids
+          Rails.logger.info '###############'
+          Rails.logger.info params[:delete_ids]
+          if params[:delete_ids].present?
+            delete_ids = params[:delete_ids].split(',').select(&:present?)
+            Photo.where(id: delete_ids).update_all(community_service_id: nil)
+          end
+        end
         redirect_to community_service_path(@community_service)
       else
         render 'edit'

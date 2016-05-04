@@ -39,11 +39,31 @@ class CommunityNewsController < ApplicationController
   def edit
     autheorize_special_admin! @community_news
     @method = 'patch'
+    @photos = @community_news.photos
   end
 
   def update
     autheorize_special_admin! @community_news
     if @community_news.update(community_news_params)
+      if params[:images]
+        params[:images].each do |image|
+          @community_news.photos.update(image: image)
+        end
+      end
+    # 删除与团购关联的图片
+    origin_ids = @community_news.photos.pluck(:id)
+    if params[:photo_ids].present? || params[:delete_ids].present?
+      ids = params[:photo_ids].split(',').select(&:present?)
+      Photo.where(id: ids).update_all(community_news_id: params[:id])
+
+      Rails.logger.info origin_ids
+      Rails.logger.info '###############'
+      Rails.logger.info params[:delete_ids]
+      if params[:delete_ids].present?
+        delete_ids = params[:delete_ids].split(',').select(&:present?)
+        Photo.where(id: delete_ids).update_all(community_news_id: nil)
+      end
+    end
       redirect_to community_news_path(@community_news)
     else
       render 'edit'

@@ -56,10 +56,30 @@ class TopicsController < ApplicationController
 
   def edit
     @method = 'patch'
+    @photos = @topic.photos
   end
 
   def update
     if @topic.update(topic_params)
+      if params[:images]
+        params[:images].each do |image|
+          @topic.photos.update(image: image)
+        end
+      end
+    # 删除与团购关联的图片
+    origin_ids = @topic.photos.pluck(:id)
+    if params[:photo_ids].present? || params[:delete_ids].present?
+      ids = params[:photo_ids].split(',').select(&:present?)
+      Photo.where(id: ids).update_all(topic_id: params[:id])
+
+      Rails.logger.info origin_ids
+      Rails.logger.info '###############'
+      Rails.logger.info params[:delete_ids]
+      if params[:delete_ids].present?
+        delete_ids = params[:delete_ids].split(',').select(&:present?)
+        Photo.where(id: delete_ids).update_all(topic_id: nil)
+      end
+    end
       redirect_to topic_path(@topic)
     else
       render 'edit'
