@@ -47,6 +47,20 @@
       <% end %>
     </div>
 
+    <% if current_user.super_admin? %>
+      <div class="weui_cells">
+        <div class="weui_cells_access">
+          <%= link_to set_users_role_path, class: 'weui_cell' do %>
+          <div class="weui_cell_bd weui_cell_primary">
+            <div class="type">
+              <i class="fa fa-bookmark"></i>设置权限
+            </div>
+          </div>
+          <div class="weui_cell_ft"></div>
+          <% end %>
+      </div>
+    <% end %>
+
     <div class="weui_cell">
       <div class="weui_cell_bd weui_cell_primary">
         <div class="sex">查看所有动态</div>

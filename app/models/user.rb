@@ -31,6 +31,17 @@ class User < ActiveRecord::Base
     self.role == '2'
   end
 
+  def role_name
+    case role
+    when '0'
+      '会员'
+    when '1'
+      '超级管理员'
+    when '2'
+      '管理员'
+    end
+  end
+
 
 
   #validates :username,   presence:   true,

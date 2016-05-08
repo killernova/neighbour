@@ -20,7 +20,7 @@ module SessionsHelper
   end
 
   def autheorize_admin!
-    redirect_to root_path unless is_admin?
+    redirect_to root_path, notice: '您没有权限!' unless is_admin?
   end
 
   def autheorize_special_admin! community_news

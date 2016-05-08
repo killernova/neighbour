@@ -24,3 +24,20 @@ $(document).ready ->
       $(this).prop('checked', true)
     else if $(this).data('checked') == false
       $(this).prop('checked', false)
+
+  #设置权限
+  $('.set-role').on 'change', ->
+    that = $(this)
+    id = that.data('id')
+    url = that.data('url')
+    val = that.val()
+    switch val
+      when '会员' then role = '0'
+      when '超级管理员' then role = '1'
+      when '管理员' then role = '2'
+    $.post url, {user_id: id, role: role}, (e) ->
+      if e.msg == 'ok'
+        alert '设置成功'
+      else
+        that.val(e.role)
+        alert e.msg

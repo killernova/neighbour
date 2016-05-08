@@ -1,0 +1,9 @@
+- provide :title, '设置权限'
+
+- @users.each do |user|
+  .row
+    .columns class="small-8"
+      = user.nickname || user.username || '无名'
+    .columns class="small-4"
+      = select_tag "role", options_for_select([ "会员", "管理员", "超级管理员" ], user.role_name), class: 'set-role',
+      'data-id' => user.id, 'data-url' => set_role_path

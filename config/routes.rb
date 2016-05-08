@@ -17,6 +17,8 @@ RailsOnForum::Application.routes.draw do
 
   get 'contact_us', to: 'users#contact_us', as: :contact_us
   get 'about_team', to: 'users#about_team', as: :about_team
+  get 'set_users_role', to: 'users#set_users_role', as: :set_users_role
+  post 'set_role', to: 'users#set_role', as: :set_role
 
   get 'secondhand_info', to: 'community_services#secondhand_info', as: :secondhand_info
   get 'household_service', to: 'community_services#household_service', as: :household_service

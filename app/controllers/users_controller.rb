@@ -1,6 +1,7 @@
 #encoding:utf-8
 class UsersController < ApplicationController
   before_action :select_user, only: [:show, :edit, :update, :destroy, :user_info, :my_orders]
+  before_action :autheorize_admin!, only: [:set_users_role]
   before_action only: [:edit, :update, :destroy] do
     validate_permission!(select_user)
   end
@@ -28,6 +29,22 @@ class UsersController < ApplicationController
 
   def my_topics
     @my_topics = current_user.try(:topics)
+  end
+
+  def set_users_role
+    @users = User.all
+  end
+
+  def set_role
+
+    user = User.find_by(id: params[:user_id])
+    role = user.role_name
+    return render json: {msg: '非超级管理员不能设置权限', role: role} unless current_user.super_admin?
+    if user.update_column(:role, params[:role])
+      render json: {msg: 'ok'}
+    else
+      render json: {msg: 'failed'}
+    end
   end
 
   def create
