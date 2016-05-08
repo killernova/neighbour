@@ -1,8 +1,10 @@
 <div class="row">
   <div class="columns small-12">
     <%= form_for @community_service, method: @method || 'post' do |f| %>
+    <% if params[:action] == 'new' %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :community_id, value: current_user.community_id %>
+    <% end %>
     <input type="hidden" , name='photo_ids' value="" class="pic-ids">
     <input type="hidden" , name='delete_ids' value="" class="delete-ids">
     <%= f.hidden_field :address, value: @community_service.address, class: 'input-address' %>
@@ -17,14 +19,14 @@
         <label for="right-label" class="right">类型</label>
       </div>
       <div class="small-9 columns">
-        <input type="radio" name="community_service[tag]" value="esxx" id="billboard">
-        <label for="billboard">二手信息</label>
-        <input type="radio" name="community_service[tag]" value="jzfw" id="notice">
-        <label for="notice">家政服务</label>
-        <input type="radio" name="community_service[tag]" value="fwzs" id="activity">
-        <label for="activity">房屋租售</label>
-        <input type="radio" name="community_service[tag]" value="bmxx" id="activity">
-        <label for="activity">便民信息</label>
+        <%= radio_button_tag "community_service[tag]", 'esxx', @community_service.tag == 'esxx' %>
+        <label>二手信息</label>
+        <%= radio_button_tag "community_service[tag]", 'jzfw', @community_service.tag == 'jzfw' %>
+        <label>家政服务</label>
+        <%= radio_button_tag "community_service[tag]", 'fwzs', @community_service.tag == 'fwzs' %>
+        <label>房屋租售</label>
+        <%= radio_button_tag "community_service[tag]", 'bmxx', @community_service.tag == 'bmxx' %>
+        <label>便民信息</label>
       </div>
     </div>
 

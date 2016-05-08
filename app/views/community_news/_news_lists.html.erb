@@ -2,7 +2,7 @@
 <%= link_to community_news_path(news) do %>
 <div class="row">
   <div class="columns small-3">
-    <%= image_tag news.list_pic %>
+    <%= image_tag (news.list_pic  || '/ljt_logo.jpg') %>
   </div>
   <div class="columns small-9">
 

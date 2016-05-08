@@ -1,8 +1,10 @@
 <div class="row">
   <div class="columns small-12">
     <%= form_for @community_news do |f| %>
+    <% if params[:action] == 'new' %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :community_id, value: current_user.community_id %>
+    <% end %>
     <input type="hidden" , name='photo_ids' value="" class="pic-ids">
     <input type="hidden" , name='delete_ids' value="" class="delete-ids">
     <div class="row">
@@ -16,11 +18,11 @@
         <label for="right-label" class="right">类型</label>
       </div>
       <div class="small-9 columns">
-        <input type="radio" name="community_news[tag]" value="billboard" id="billboard">
+        <%= radio_button_tag "community_news[tag]", 'billboard', @community_news.tag == 'billboard' %>
         <label for="billboard">居委告示</label>
-        <input type="radio" name="community_news[tag]" value="notice" id="notice">
+        <%= radio_button_tag "community_news[tag]", 'notice', @community_news.tag == 'notice' %>
         <label for="notice">物业通知</label>
-        <input type="radio" name="community_news[tag]" value="activity" id="activity">
+        <%= radio_button_tag "community_news[tag]", 'activity', @community_news.tag == 'activity' %>
         <label for="activity">社区活动</label>
       </div>
     </div>

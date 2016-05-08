@@ -5,7 +5,7 @@ if($('input[name="commit"]').val() == 'Submit') {
 }
 
 Dropzone.options.myDropzone = {
-maxFilesize: 3, // MB
+maxFilesize: 20, // MB
 addRemoveLinks: true,
 thumbnailWidth: 40,
 thumbnailHeight: 40,

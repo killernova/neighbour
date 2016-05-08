@@ -2,8 +2,10 @@
   <div class="columns small-12">
 
     <%= form_for @topic do |f| %>
+    <% if params[:action] == 'new' %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :community_id, value: current_user.community_id %>
+    <% end %>
     <input type="hidden" , name='photo_ids' value="" class="pic-ids">
     <input type="hidden" , name='delete_ids' value="" class="delete-ids">
     <div class="row">
