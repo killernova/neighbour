@@ -32,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def set_users_role
-    @users = User.all
+    @users = User.all.paginate(page: params[:page], per_page: 50)
   end
 
   def set_role

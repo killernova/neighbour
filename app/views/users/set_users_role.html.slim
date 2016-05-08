@@ -7,3 +7,5 @@
     .columns class="small-4"
       = select_tag "role", options_for_select([ "会员", "管理员", "超级管理员" ], user.role_name), class: 'set-role',
       'data-id' => user.id, 'data-url' => set_role_path
+
+= will_paginate @users
