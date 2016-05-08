@@ -20,8 +20,8 @@ class CommunityService < ActiveRecord::Base
     case tag
     when 'esxx' then '二手信息'
     when 'jzfw' then '家政服务'
-    when 'esxx' then '房屋租售'
-    when 'esxx' then '便民信息'
+    when 'fwzs' then '房屋租售'
+    when 'bmxx' then '便民信息'
     end
   end
 end
