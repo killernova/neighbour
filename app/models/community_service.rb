@@ -5,14 +5,13 @@ class CommunityService < ActiveRecord::Base
   belongs_to :community
   has_many :photos
   has_many :comments
-  before_save :set_tag
   scope :desc, -> { order(created_at: :desc) }
+  enum tag: [:esxx, :jzfw, :fwzs, :bmxx]
+  scope :esxx, -> { where(tag: 0) }
+  scope :jzfw, -> { where(tag: 1) }
+  scope :fwzs, -> { where(tag: 2) }
+  scope :bmxx, -> { where(tag: 3) }
 
-  def set_tag
-    if tag.blank?
-      self.tag = '其他'
-    end
-  end
 
   def list_pic
     other_img (self.photos.try :first), 'mini'

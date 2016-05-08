@@ -1,0 +1,7 @@
+- provide :title, '二手信息'
+= render 'order'
+- if @community_services.present?
+  .community_services
+    = render partial: 'service_lists', locals: { community_services: @community_services }
+- else
+  .no-objects 暂无服务

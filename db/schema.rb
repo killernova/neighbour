@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160429093419) do
+ActiveRecord::Schema.define(version: 20160508020649) do
 
   create_table "activities", force: :cascade do |t|
     t.string   "title",        limit: 255
@@ -86,11 +86,11 @@ ActiveRecord::Schema.define(version: 20160429093419) do
     t.string   "title",          limit: 50
     t.text     "content",        limit: 65535
     t.integer  "community_id",   limit: 8
-    t.datetime "created_at",                                  null: false
-    t.datetime "updated_at",                                  null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
     t.integer  "comments_count", limit: 4,     default: 0
-    t.string   "tag",            limit: 20,    default: "其他"
     t.string   "address",        limit: 100
+    t.integer  "tag",            limit: 2
   end
 
   add_index "community_services", ["community_id"], name: "index_community_services_on_community_id", using: :btree

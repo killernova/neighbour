@@ -35,33 +35,28 @@ class CommunityServicesController < ApplicationController
   end
 
   def index
-    @with = ''
-    @order_by = ''
-    if current_user && current_user.my_services?
-      if params[:order_by].present? && params[:with].present?
-        @order_by = params[:order_by]
-        @with = params[:with]
-        if @order_by == 'name'
-          @community_services = CommunityService.joins(:user, :community).where('community_services.community_id = ?', current_user.community.id).order("communities.name #{@with}")
-        else
-          @community_services = CommunityService.joins(:user).where('community_services.community_id = ?', current_user.community.id).order("#{params[:order_by]} #{params[:with]}")
-        end
-      else
-        @community_services = CommunityService.joins(:user).where('community_services.community_id = ?', current_user.community.id).desc
-      end
-    else
-      if params[:order_by].present? && params[:with].present?
-        @order_by = params[:order_by]
-        @with = params[:with]
-        if @order_by == 'name'
-          @community_services = CommunityService.joins(:community).order("communities.name #{@with}")
-        else
-          @community_services = CommunityService.order("#{params[:order_by]} #{params[:with]}")
-        end
-      else
-        @community_services = CommunityService.desc
-      end
-    end
+    @community_services = CommunityService.all
+    set_scope @community_services
+  end
+
+  def secondhand_info
+    @community_services = CommunityService.esxx
+    set_scope @community_services
+  end
+
+  def household_service
+    @community_services = CommunityService.jzfw
+    set_scope @community_services
+  end
+
+  def house_rental_and_sale
+    @community_services = CommunityService.fwzs
+    set_scope @community_services
+  end
+
+  def convenience_info
+    @community_services = CommunityService.bmxx
+    set_scope @community_services
   end
 
   def edit
@@ -116,5 +111,35 @@ class CommunityServicesController < ApplicationController
 
   def community_service_params
     params.require(:community_service).permit(:user_id, :title, :content, :community_id, :tag, :address)
+  end
+
+  def set_scope services
+    @with = ''
+    @order_by = ''
+    if current_user && current_user.my_services?
+      if params[:order_by].present? && params[:with].present?
+        @order_by = params[:order_by]
+        @with = params[:with]
+        if @order_by == 'name'
+          @community_services = services.joins(:user, :community).where('community_services.community_id = ?', current_user.community.id).order("communities.name #{@with}")
+        else
+          @community_services = services.joins(:user).where('community_services.community_id = ?', current_user.community.id).order("#{params[:order_by]} #{params[:with]}")
+        end
+      else
+        @community_services = services.joins(:user).where('community_services.community_id = ?', current_user.community.id).desc
+      end
+    else
+      if params[:order_by].present? && params[:with].present?
+        @order_by = params[:order_by]
+        @with = params[:with]
+        if @order_by == 'name'
+          @community_services = services.joins(:community).order("communities.name #{@with}")
+        else
+          @community_services = services.order("#{params[:order_by]} #{params[:with]}")
+        end
+      else
+        @community_services = services.desc
+      end
+    end
   end
 end

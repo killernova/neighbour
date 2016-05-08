@@ -18,6 +18,11 @@ RailsOnForum::Application.routes.draw do
   get 'contact_us', to: 'users#contact_us', as: :contact_us
   get 'about_team', to: 'users#about_team', as: :about_team
 
+  get 'secondhand_info', to: 'community_services#secondhand_info', as: :secondhand_info
+  get 'household_service', to: 'community_services#household_service', as: :household_service
+  get 'house_rental_and_sale', to: 'community_services#house_rental_and_sale', as: :house_rental_and_sale
+  get 'convenience_info', to: 'community_services#convenience_info', as: :convenience_info
+
   get 'tags/create'
 
 

@@ -10,6 +10,8 @@ gem 'remotipart', '~> 1.2'
 
 gem 'axlsx','~>2.0'
 
+gem 'slim'
+
 #picture process
 gem 'carrierwave'
 gem "mini_magick"

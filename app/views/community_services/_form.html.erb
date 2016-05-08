@@ -12,12 +12,19 @@
       </div>
     </div>
 
-    <div class="row collapse prefix-round">
+    <div class="row">
       <div class="small-3 columns">
-        <a href="#" class="button prefix">类别</a>
+        <label for="right-label" class="right">类型</label>
       </div>
       <div class="small-9 columns">
-        <%= f.text_field :tag, placeholder: '请输入类别', class: 'service-tag' %>
+        <input type="radio" name="community_service[tag]" value="esxx" id="billboard">
+        <label for="billboard">二手信息</label>
+        <input type="radio" name="community_service[tag]" value="jzfw" id="notice">
+        <label for="notice">家政服务</label>
+        <input type="radio" name="community_service[tag]" value="fwzs" id="activity">
+        <label for="activity">房屋租售</label>
+        <input type="radio" name="community_service[tag]" value="bmxx" id="activity">
+        <label for="activity">便民信息</label>
       </div>
     </div>
 
